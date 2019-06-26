@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:layout_marginTop="24dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25.5dp">
+
+        <LinearLayout
+            android:id="@+id/date_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Jan"
+                android:textColor="#0887ff"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="26"
+                android:textAlignment="center"
+                android:textColor="#0887ff"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/grievance_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15.5dp"
+            android:layout_marginEnd="19dp"
+            android:layout_toEndOf="@id/date_view"
+            android:lineSpacingExtra="6sp"
+            android:text="This is my grievance This is my grievance This is my grievance This is my grievance This is my grievance This is my grievance"
+            android:textColor="#6d7278"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/grievance_status_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/grievance_view"
+            android:layout_marginStart="36.5dp"
+            android:layout_marginTop="5dp"
+            android:text="Pending"
+            android:textColor="#b0b1b2"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/grievance_view"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="35dp"
+            android:text="12:45 AM"
+            android:textColor="#b0b1b2"
+            android:textSize="9sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:background="#40000000" />
+</LinearLayout>

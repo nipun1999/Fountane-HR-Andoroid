@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="47dp"
+            android:text="Sign In"
+            android:textAlignment="center"
+            android:textColor="#0887ff"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:layout_width="233dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="27dp"
+            android:src="@drawable/ic_mailbox" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="63dp"
+            android:letterSpacing="-0.01"
+            android:text="Email Address"
+            android:textColor="#80000000"
+            android:textSize="14sp"
+            android:layout_marginLeft="25dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/text_input_box"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="24dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                app:hintEnabled="false"
+                android:layout_alignParentLeft="true"
+                tools:ignore="RtlCompat">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="abc_123"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textSize="12sp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="30dp"
+                android:letterSpacing="-0.01"
+                android:text="\@fountane.com"
+                android:textColor="#80000000"
+                android:textSize="12sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:letterSpacing="-0.01"
+            android:text="Password"
+            android:textColor="#80000000"
+            android:textSize="14sp"
+            android:layout_marginLeft="25dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/text_input_box"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="24dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="#19000000"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true">
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="**********"
+                    android:inputType="textPassword"
+                    android:padding="10dp"
+                    android:textSize="12sp" />
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="15dp"
+                android:button="@drawable/checkbox_selector"
+                android:layout_marginLeft="28dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="54dp"
+                android:letterSpacing="-0.01"
+                android:text="Remember Me"
+                android:textColor="#80000000"
+                android:textSize="12sp"
+                android:layout_marginLeft="54dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="24dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:letterSpacing="-0.01"
+                android:text="Forgot Password?"
+                android:textColor="#80000000"
+                android:textSize="12sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="24dp" />
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="49dp"
+            android:layout_marginEnd="48dp"
+            android:background="@drawable/sky_blue_button"
+            android:text="SIGN IN"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:layout_marginLeft="49dp"
+            android:layout_marginRight="48dp" />
+
+        <TextView
+            android:layout_width="19dp"
+            android:layout_height="16dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.03"
+            android:text="Or"
+            android:layout_marginBottom="5dp"
+            android:textColor="#757575"
+            android:textSize="14sp"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/googleSignInBtn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="49dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="48dp"
+            android:background="#ffffff"
+            android:drawableStart="@drawable/ic_btn_google_light_normal_ios"
+            android:elevation="2dp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.03"
+            android:paddingStart="12dp"
+            android:text="Sign in with Google"
+            android:textAllCaps="false"
+            android:textColor="#757575"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            android:layout_marginLeft="49dp"
+            android:layout_marginRight="48dp"
+            android:drawableLeft="@drawable/ic_btn_google_light_normal_ios"
+            android:paddingLeft="12dp" />
+
+        <!--<com.google.android.gms.common.SignInButton-->
+        <!--android:id="@+id/sign_in_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:visibility="visible" />-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="38dp"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:enabled="false"
+            android:focusable="true"
+            android:text="@string/new_to_fountane_hr_register"
+            android:textColor="#0887ff"
+            android:textSize="12sp" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

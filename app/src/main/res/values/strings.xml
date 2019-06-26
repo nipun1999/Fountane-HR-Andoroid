@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Fountane HR</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="new_to_fountane_hr_register"><u>New To Fountane HR? Register</u></string>
+    <string name="already_registered_sign_in"><u>Already Registered? Sign In</u></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="server_client_id"> 498233300103-3p9u6r2rmlru42i40d421ju1ljosdca9.apps.googleusercontent.com </string>
+    <string name="title_activity_main">DashBoard</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+</resources>

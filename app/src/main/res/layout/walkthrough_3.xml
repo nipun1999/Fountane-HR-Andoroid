@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/screen3"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="#ffffff"
+        android:letterSpacing="0.04"
+        android:gravity="center_horizontal"
+        android:text="Leaves"
+        android:layout_marginTop="21dp"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_width="292dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#ffffff"
+        android:letterSpacing="0.08"
+        android:layout_gravity="center"
+        android:layout_marginTop="11dp"
+        android:gravity="center_horizontal"
+        android:text="Track available leave. Apply of leaves and get your leaves approved by your manager."
+        />
+
+
+</LinearLayout>

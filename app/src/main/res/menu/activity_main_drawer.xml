@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/profile"
+                android:title="PROFILE" />
+            <item
+                android:id="@+id/settings"
+                android:title="SETTINGS" />
+        </menu>
+    </item>
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/about"
+                android:title="ABOUT" />
+            <item
+                android:id="@+id/help_support"
+                android:title="HELP &amp; SUPPORT" />
+            <item
+                android:id="@+id/privacy_policy"
+                android:title="PRIVACY POLICY" />
+            <item
+                android:id="@+id/terms_of_service"
+                android:title="TERMS OF SERVICE" />
+
+        </menu>
+    </item>
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:title="LOGOUT" />
+        </menu>
+    </item>
+
+</menu>
