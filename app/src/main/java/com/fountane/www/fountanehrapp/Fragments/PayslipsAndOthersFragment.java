@@ -1,4 +1,4 @@
-package com.fountane.www.fountanehrapp;
+package com.fountane.www.fountanehrapp.Fragments;
 
 
 import android.os.Bundle;
@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fountane.www.fountanehrapp.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewLeave extends Fragment {
+public class PayslipsAndOthersFragment extends Fragment {
 
 
-    public NewLeave() {
+    public PayslipsAndOthersFragment() {
         // Required empty public constructor
     }
 
@@ -23,12 +25,8 @@ public class NewLeave extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View view = inflater.inflate(R.layout.fragment_new_leave, container, false);
-        getActivity().setTitle("New Leave");
-        return view;
-
-
-
+        getActivity().setTitle("Payslips");
+        return inflater.inflate(R.layout.fragment_payslips_and_others, container, false);
     }
 
 }

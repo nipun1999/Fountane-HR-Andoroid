@@ -1,4 +1,4 @@
-package com.fountane.www.fountanehrapp;
+package com.fountane.www.fountanehrapp.Fragments;
 
 
 import android.os.Bundle;
@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fountane.www.fountanehrapp.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends Fragment {
+public class NewLeave extends Fragment {
 
 
-    public ProfileFragment() {
+    public NewLeave() {
         // Required empty public constructor
     }
 
@@ -23,8 +25,12 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("Profile");
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+       View view = inflater.inflate(R.layout.fragment_new_leave, container, false);
+        getActivity().setTitle("New Leave");
+        return view;
+
+
+
     }
 
 }

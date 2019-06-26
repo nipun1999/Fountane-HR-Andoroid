@@ -1,4 +1,4 @@
-package com.fountane.www.fountanehrapp;
+package com.fountane.www.fountanehrapp.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import com.fountane.www.fountanehrapp.Fragments.AttendanceFragment;
+import com.fountane.www.fountanehrapp.Fragments.DashboardFragment;
+import com.fountane.www.fountanehrapp.Fragments.UserProfileFragment;
+import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.Utils.SessionManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

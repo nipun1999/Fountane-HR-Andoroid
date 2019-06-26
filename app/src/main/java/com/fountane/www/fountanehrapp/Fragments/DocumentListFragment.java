@@ -1,4 +1,4 @@
-package com.fountane.www.fountanehrapp;
+package com.fountane.www.fountanehrapp.Fragments;
 
 
 import android.os.Bundle;
@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fountane.www.fountanehrapp.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PayslipsAndOthersFragment extends Fragment {
+public class DocumentListFragment extends Fragment {
 
 
-    public PayslipsAndOthersFragment() {
+    public DocumentListFragment() {
         // Required empty public constructor
     }
 
@@ -23,8 +25,8 @@ public class PayslipsAndOthersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("Payslips");
-        return inflater.inflate(R.layout.fragment_payslips_and_others, container, false);
+        getActivity().setTitle("Documents");
+        return inflater.inflate(R.layout.fragment_document_list, container, false);
     }
 
 }

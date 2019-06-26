@@ -1,4 +1,4 @@
-package com.fountane.www.fountanehrapp;
+package com.fountane.www.fountanehrapp.Fragments;
 
 
 import android.os.Bundle;
@@ -12,11 +12,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.fountane.www.fountanehrapp.Adapters.newsRecyclerAdapter;
+import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.models.News;
 
 import java.util.ArrayList;

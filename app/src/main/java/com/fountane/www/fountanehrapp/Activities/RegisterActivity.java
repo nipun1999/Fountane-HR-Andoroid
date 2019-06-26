@@ -1,7 +1,9 @@
-package com.fountane.www.fountanehrapp;
+package com.fountane.www.fountanehrapp.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.fountane.www.fountanehrapp.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

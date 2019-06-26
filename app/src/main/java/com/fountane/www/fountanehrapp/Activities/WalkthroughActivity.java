@@ -1,4 +1,4 @@
-package com.fountane.www.fountanehrapp;
+package com.fountane.www.fountanehrapp.Activities;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -15,6 +15,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.fountane.www.fountanehrapp.R;
 
 public class WalkthroughActivity extends AppCompatActivity {
 
