@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:layout_marginTop="24dp"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_marginStart="25.5dp">
 
         <LinearLayout
@@ -19,6 +20,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/leaveMonthTxtView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -27,6 +29,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/leaveDateTxtView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -37,7 +40,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/leave_summary_view"
+            android:id="@+id/leaveSummaryTxtView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15.5dp"
@@ -48,10 +51,10 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/leave_detail_view"
+            android:id="@+id/leaveDetailTxtView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/leave_summary_view"
+            android:layout_below="@id/leaveSummaryTxtView"
             android:layout_marginStart="15.5dp"
             android:layout_marginTop="3dp"
             android:layout_toEndOf="@id/date_view"
@@ -61,10 +64,10 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/leave_status_view"
+            android:id="@+id/leaveStatusTxtView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/leave_detail_view"
+            android:layout_below="@id/leaveDetailTxtView"
             android:layout_marginStart="36.5dp"
             android:layout_marginTop="5dp"
             android:text="Pending"
@@ -82,6 +85,7 @@
             android:src="@drawable/ic_create_new_pencil_button" />
 
         <TextView
+            android:id="@+id/timeLeaveTxtView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/leave_edit"
@@ -94,11 +98,4 @@
 
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="15dp"
-        android:background="#40000000" />
 </LinearLayout>

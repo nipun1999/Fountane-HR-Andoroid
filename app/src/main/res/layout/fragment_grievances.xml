@@ -18,8 +18,10 @@
             android:layout_marginTop="21dp"
             android:gravity="center_horizontal"
             android:text="Post"
+            android:textStyle="bold"
             android:textColor="#37394c"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,11 +32,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="19dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/text_input_box"
                 android:hint="Type your grievance here"
                 android:padding="20dp"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_marginRight="20dp" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -47,10 +50,13 @@
                 android:paddingBottom="20dp"
                 android:text="Post"
                 android:textColor="#ffffff"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="19dp" />
         </RelativeLayout>
 
         <TextView
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -58,11 +64,16 @@
             android:gravity="center_horizontal"
             android:text="My Grievance"
             android:textColor="#37394c"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp" />
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/grievanceRecycler"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginBottom="20dp" />
     </LinearLayout>
 </FrameLayout>

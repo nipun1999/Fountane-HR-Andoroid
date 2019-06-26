@@ -260,7 +260,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="23dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         android:scaleType="center"
         android:src="@drawable/ic_check_in"
         app:backgroundTint="@null"

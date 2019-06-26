@@ -10,10 +10,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="70dp"
         android:orientation="vertical">
 
         <TextView
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -279,37 +279,44 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="23dp"
-            android:gravity="center_horizontal"
-            android:text="Leave Status"
-            android:textColor="#37394c"
-            android:textSize="20sp" />
-
-        <android.support.v7.widget.RecyclerView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="10dp"
-            />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="23dp"
+                android:gravity="center_horizontal"
+                android:text="Leave Status"
+                android:textColor="#37394c"
+                android:textSize="20sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/leavesRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="60dp"
+                />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/newLeave"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="23dp"
+                android:layout_marginRight="23dp"
+                android:layout_marginBottom="20dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_add"
+                app:backgroundTint="@null"
+                app:maxImageSize="30dp" />
+        </FrameLayout>
 
 
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/newLeave"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="23dp"
-        android:layout_marginRight="23dp"
-        android:layout_marginBottom="40dp"
-        android:scaleType="center"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@null"
-        app:maxImageSize="30dp" />
 
 
 

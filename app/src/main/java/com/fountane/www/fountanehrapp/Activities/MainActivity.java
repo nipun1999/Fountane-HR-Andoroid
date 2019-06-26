@@ -29,9 +29,6 @@ import com.google.android.gms.tasks.Task;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-
-
-
     private SessionManager sessionManager;
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -173,17 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 });
     }
 
-    private boolean loadFragment(Fragment fragment) {
-        //switching fragment
-        if (fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(android.R.id.content, fragment)
-                    .commit();
-            return true;
-        }
-        return false;
-    }
+    
 
 }
 

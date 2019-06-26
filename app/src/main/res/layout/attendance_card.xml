@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:layout_marginTop="23dp"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_marginStart="25.5dp">
 
         <LinearLayout
@@ -24,10 +24,12 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="Jan"
+                android:id="@+id/attendanceMonthTxtView"
                 android:textColor="#0887ff"
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/attendanceDateTxtView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -38,7 +40,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/leave_summary_view"
+            android:id="@+id/attendanceCheckInTxtView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15.5dp"
@@ -49,10 +51,10 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/leave_detail_view"
+            android:id="@+id/attendanceCheckOutTxtView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/leave_summary_view"
+            android:layout_below="@id/attendanceCheckInTxtView"
             android:layout_marginStart="15.5dp"
             android:layout_marginTop="3dp"
             android:layout_toEndOf="@id/date_view"
@@ -124,13 +126,5 @@
         android:textSize="14sp"
         android:visibility="gone" />
 
-    <View
-        android:layout_marginBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="15dp"
-        android:background="#40000000"
-        android:visibility="visible" />
+
 </LinearLayout>
