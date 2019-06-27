@@ -30,6 +30,7 @@
         android:layout_alignParentBottom="true">
 
         <Button
+            android:id="@+id/getStartedBtn"
             android:layout_width="263dp"
             android:layout_height="45dp"
             android:gravity="center"

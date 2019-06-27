@@ -28,6 +28,7 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:id="@+id/grievanceDescEdtTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -40,6 +41,7 @@
                 android:layout_marginRight="20dp" />
 
             <Button
+                android:id="@+id/grievancePostBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

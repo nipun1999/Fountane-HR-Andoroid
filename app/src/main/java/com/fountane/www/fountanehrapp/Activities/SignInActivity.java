@@ -1,21 +1,35 @@
 package com.fountane.www.fountanehrapp.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.fountane.www.fountanehrapp.ApiModels.googleLoginApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.registrationApiModel;
 import com.fountane.www.fountanehrapp.R;
+import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
 import com.fountane.www.fountanehrapp.Utils.SessionManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -24,6 +38,7 @@ public class SignInActivity extends AppCompatActivity {
     private Button signInBtn;
     private GoogleSignInClient mGoogleSignInClient;
     private SessionManager sessionManager;
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +55,9 @@ public class SignInActivity extends AppCompatActivity {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        pd = new ProgressDialog(SignInActivity.this);
+        pd.setMessage("loading");
+        pd.setCancelable(false);
 
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,8 +66,8 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -75,11 +93,8 @@ public class SignInActivity extends AppCompatActivity {
             GoogleSignInAccount account = task.getResult(ApiException.class);
             String idToken = account.getIdToken();
             Log.e("token",idToken);
-            sessionManager.setLogInStatus(true);
-            Intent homePage = new Intent(SignInActivity.this,MainActivity.class);
-            startActivity(homePage);
-            // Signed in successfully, show authenticated UI.
-//            updateUI(account);
+            authenticateFromServer(idToken);
+
         } catch (ApiException e) {
             Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
             // The ApiException status code indicates the detailed failure reason.
@@ -87,6 +102,61 @@ public class SignInActivity extends AppCompatActivity {
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
 //            updateUI(null);
         }
+    }
+
+    private void authenticateFromServer(String idToken) {
+        pd.show();
+        Map<String, String> map = new HashMap<>();
+        map.put("idToken",idToken);
+        Call<googleLoginApiModel> call = ApiClient.getClient().signInGoogle(map);
+        call.enqueue(new Callback<googleLoginApiModel>() {
+            @Override
+            public void onResponse(Call<googleLoginApiModel> call, Response<googleLoginApiModel> response) {
+                pd.dismiss();
+                if(response.code()==200){
+                    Boolean status = response.body().getStatus();
+                    String token = response.body().getToken();
+                    String empCode = response.body().getEmpCode();
+                    String name = response.body().getName();
+                    Log.e("empCode",empCode);
+                    Log.e("accessToken",token);
+                    Log.e("name",name);
+                    sessionManager.setX_AUTH_TOKEN(token);
+                    sessionManager.setLogInStatus(true);
+                    sessionManager.setEMP_CODE(empCode);
+                    sessionManager.setEMPLOYEE_NAME(name);
+                    if(status){
+                        Intent walkthrough = new Intent(SignInActivity.this,WalkthroughActivity.class);
+                        startActivity(walkthrough);
+                    }else{
+                        Intent dashboard = new Intent(SignInActivity.this,MainActivity.class);
+                        startActivity(dashboard);
+                    }
+                }else if(response.code()==500){
+                    Toast.makeText(SignInActivity.this,"Eamil not registered with fountane, Please contact HR", Toast.LENGTH_SHORT).show();
+                    revokeAccess();
+                }else{
+                    Toast.makeText(SignInActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
+                    revokeAccess();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<googleLoginApiModel> call, Throwable t) {
+                pd.dismiss();
+                Toast.makeText(SignInActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void revokeAccess() {
+        mGoogleSignInClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                    }
+                });
     }
 
 }

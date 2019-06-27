@@ -23,21 +23,14 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/nameNavTxtView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="5sp"
             android:text="Cheryl Adams"
             android:textColor="#ffffff"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="5sp"
-            android:text="UI Designer"
-            android:textColor="#ffffff"
-            android:textSize="15sp" />
     </LinearLayout>
 
 </LinearLayout>

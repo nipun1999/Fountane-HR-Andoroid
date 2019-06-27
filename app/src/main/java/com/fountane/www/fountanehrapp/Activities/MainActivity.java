@@ -1,4 +1,5 @@
 package com.fountane.www.fountanehrapp.Activities;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.telecom.Call;
+import android.util.Log;
 import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -15,11 +18,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fountane.www.fountanehrapp.ApiModels.personalEmployeeProfileApiModel;
 import com.fountane.www.fountanehrapp.Fragments.AttendanceFragment;
 import com.fountane.www.fountanehrapp.Fragments.DashboardFragment;
 import com.fountane.www.fountanehrapp.Fragments.UserProfileFragment;
 import com.fountane.www.fountanehrapp.R;
+import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
 import com.fountane.www.fountanehrapp.Utils.SessionManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -27,10 +35,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private SessionManager sessionManager;
     private GoogleSignInClient mGoogleSignInClient;
+    private ProgressDialog pd;
+    private TextView nameNavTxt;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,12 +88,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        getProfile();
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .requestIdToken(getString(R.string.server_client_id))
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+//        Toast.makeText(this, sessionManager.getEMP_Code(), Toast.LENGTH_SHORT).show();
+
+
        /* FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +115,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+
+        nameNavTxt = headerView.findViewById(R.id.nameNavTxtView);
+
+        if(sessionManager.getEMPLOYEE_NAME()!=null) {
+            nameNavTxt.setText(sessionManager.getEMPLOYEE_NAME());
+        }
+
     }
+
+//    private void getProfile() {
+//        retrofit2.Call<personalEmployeeProfileApiModel> call =ApiClient.getClient().personalProfile(sessionManager.getEMP_Code());
+//        call.enqueue(new Callback<personalEmployeeProfileApiModel>() {
+//            @Override
+//            public void onResponse(retrofit2.Call<personalEmployeeProfileApiModel> call, Response<personalEmployeeProfileApiModel> response) {
+//                if(response.code()==200){
+//                    Log.v("name",response.body().getProfile().get(0).getName());
+//                    sessionManager.setEMPLOYEE_NAME(response.body().getProfile().get(0).getName());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(retrofit2.Call<personalEmployeeProfileApiModel> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     @Override
     public void onBackPressed() {

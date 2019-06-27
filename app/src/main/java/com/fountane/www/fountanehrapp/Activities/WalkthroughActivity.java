@@ -1,6 +1,7 @@
 package com.fountane.www.fountanehrapp.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,6 +28,7 @@ public class WalkthroughActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
+    private Button getStartedBtn;
 
 
     @Override
@@ -41,6 +44,7 @@ public class WalkthroughActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
+        getStartedBtn = findViewById(R.id.getStartedBtn);
 
         layouts = new int[]{
                 R.layout.walkthrough_1,
@@ -57,6 +61,14 @@ public class WalkthroughActivity extends AppCompatActivity {
         myViewPagerAdapter = new MyViewPagerAdapter();
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+
+        getStartedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dashbaord = new Intent(WalkthroughActivity.this,MainActivity.class);
+                startActivity(dashbaord);
+            }
+        });
 
 
     }

@@ -12,7 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fountane.www.fountanehrapp.Adapters.newsRecyclerAdapter;
@@ -31,9 +33,10 @@ public class DashboardFragment extends Fragment {
     private RelativeLayout grievancesBtn,leavesBtn,payslipsBtn,documentsBtn;
     private RecyclerView newsRecycler,eventsRecycler;
     private newsRecyclerAdapter newsRecyclerAdapter,eventsRecyclerAdapter;
+    private TextView newsViewAll;
     private List<News> newsList = new ArrayList<>();
     private List<News> eventsList = new ArrayList<>();
-    private FloatingActionButton checkInBtn;
+    private ImageView checkInBtn;
 
 
     public DashboardFragment() {
@@ -54,6 +57,7 @@ public class DashboardFragment extends Fragment {
         newsRecycler = view.findViewById(R.id.newsRecyclerView);
         eventsRecycler = view.findViewById(R.id.eventsRecyclerView);
         checkInBtn = view.findViewById(R.id.checkInBtn);
+        newsViewAll = view.findViewById(R.id.newsViewAll);
 
         newsRecyclerAdapter = new newsRecyclerAdapter(newsList);
         eventsRecyclerAdapter = new newsRecyclerAdapter(eventsList);
@@ -68,6 +72,17 @@ public class DashboardFragment extends Fragment {
         eventsRecycler.setLayoutManager(eventsLayoutmanager);
         eventsRecycler.setItemAnimator(new DefaultItemAnimator());
         eventsRecycler.setAdapter(eventsRecyclerAdapter);
+
+
+
+        newsViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.content,new NewsFragment()).addToBackStack("tag").commit();
+            }
+        });
 
         checkInBtn.setOnClickListener(new View.OnClickListener() {
             @Override

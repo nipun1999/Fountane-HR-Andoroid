@@ -24,6 +24,7 @@
                 android:src="@mipmap/ic_launcher_round" />
 
             <TextView
+                android:id="@+id/profileNameTxtView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -33,6 +34,7 @@
                 android:text="Adam Gray" />
 
             <TextView
+                android:id="@+id/designationProfileTxtView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -74,6 +76,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/profileEmpCodeTxtView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -132,6 +135,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/profileContactTxtView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -165,6 +169,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/profileEmailTxtView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -190,6 +195,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/profileDOBTxtView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -215,6 +221,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/addressProfileTxtView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -259,6 +266,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/profileBranchTxtView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -284,6 +292,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/profileDepartmentTxtView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
