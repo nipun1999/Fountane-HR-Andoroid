@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.fountane.www.fountanehrapp.ApiModels.googleLoginApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.personalEmployeeProfileApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.registrationApiModel;
 import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
@@ -19,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -125,6 +127,8 @@ public class SignInActivity extends AppCompatActivity {
                     sessionManager.setLogInStatus(true);
                     sessionManager.setEMP_CODE(empCode);
                     sessionManager.setEMPLOYEE_NAME(name);
+                    getAttendanceStatus();
+
                     if(status){
                         Intent walkthrough = new Intent(SignInActivity.this,WalkthroughActivity.class);
                         startActivity(walkthrough);
@@ -144,10 +148,39 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<googleLoginApiModel> call, Throwable t) {
                 pd.dismiss();
+                revokeAccess();
                 Toast.makeText(SignInActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    private void getAttendanceStatus() {
+        pd.show();
+        Call<personalEmployeeProfileApiModel> call = ApiClient.getClient().personalProfile(sessionManager.getEMP_Code());
+        call.enqueue(new Callback<personalEmployeeProfileApiModel>() {
+            @Override
+            public void onResponse(Call<personalEmployeeProfileApiModel> call, Response<personalEmployeeProfileApiModel> response) {
+                if(response.code()==200){
+                    pd.hide();
+                    Boolean status = response.body().getProfile().get(0).getStatus();
+                    Log.e("atttendance",Boolean.toString(status));
+                    sessionManager.setATTENDANCE_STATUS(status);
+                    sessionManager.setATTENDANCE_ID(response.body().getProfile().get(0).getAttendanceId());
+                    Log.e("atttendanceId",Integer.toString(sessionManager.getATTENDANCE_ID()));
+                    Log.e("attendanceId",Integer.toString(sessionManager.getATTENDANCE_ID()));
+                }else{
+                    Toast.makeText(SignInActivity.this, "error occured", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<personalEmployeeProfileApiModel> call, Throwable t) {
+                pd.hide();
+                Log.e("profile",t.toString());
+            }
+        });
+    }
+
 
     private void revokeAccess() {
         mGoogleSignInClient.revokeAccess()

@@ -15,6 +15,12 @@
     <color name="dot_dark_screen3">#2278d4</color>
     <color name="dot_dark_screen4">#a854d4</color>
 
+    <color name="casualColor">#0887ff</color>
+    <color name="sickColor">#d9d748</color>
+    <color name="paidColor">#a2d072</color>
+    <color name="wfhColor">#e86565</color>
+    <color name="optionslColor">#b620e0</color>
+
     <!-- dots active colors -->
     <color name="dot_light_screen1">#f98da5</color>
     <color name="dot_light_screen2">#8cf9eb</color>

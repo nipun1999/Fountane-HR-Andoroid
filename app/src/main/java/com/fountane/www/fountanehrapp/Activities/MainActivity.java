@@ -1,6 +1,7 @@
 package com.fountane.www.fountanehrapp.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -76,11 +77,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sessionManager = new SessionManager(this);
+
+
+
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.content,new DashboardFragment()).commit();
 
-        sessionManager = new SessionManager(this);
+
+
+
 
 //        loadFragment(new DashboardFragment());
         BottomNavigationView navView = findViewById(R.id.nav_view_bottom);
@@ -123,6 +131,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(sessionManager.getEMPLOYEE_NAME()!=null) {
             nameNavTxt.setText(sessionManager.getEMPLOYEE_NAME());
         }
+
+
+
+
 
     }
 
@@ -215,6 +227,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
     }
+
+
 
     
 

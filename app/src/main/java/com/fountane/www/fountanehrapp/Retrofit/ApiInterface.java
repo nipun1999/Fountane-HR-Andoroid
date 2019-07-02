@@ -1,9 +1,17 @@
 package com.fountane.www.fountanehrapp.Retrofit;
 
+import com.fountane.www.fountanehrapp.ApiModels.CreateAttendanceApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.createLeaveApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.getAttendanceApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.getEventsApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.getGrievancesApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.getLeavesApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.getMonthlyAttendanceApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.getNewsApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.googleLoginApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.createGrievancesApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.personalEmployeeProfileApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.updateAttendanceApiModel;
 
 import java.util.Map;
 
@@ -28,5 +36,28 @@ public interface ApiInterface {
     @GET("api/v1/get/grievance")
     Call<getGrievancesApiModel> getGrievances(@Query("empCode") String empCode);
 
+    @POST("api/v1/create/attendance")
+    Call<CreateAttendanceApiModel> createAttendance(@Body Map<String,String> body);
+
+    @POST("api/v1/updateCheckOut/attendance")
+    Call<updateAttendanceApiModel> updateAttendance(@Body Map<String,String> body);
+
+    @GET("api/v1/get/attendance")
+    Call<getAttendanceApiModel> getAttendance(@Query("empCode") String empCode);
+
+    @GET("api/v1/getByMonth")
+    Call<getMonthlyAttendanceApiModel> getMonthlyAttendance(@Query("empCode") String empcode,@Query("month") String month,@Query("year") String year);
+
+    @POST("api/v1/leaves/create")
+    Call<createLeaveApiModel> createLeave(@Body Map<String,String> body);
+
+    @GET("api/v1/leaves/get")
+    Call<getLeavesApiModel> getLeaves(@Query("empCode") String empCode);
+
+    @GET("api/v1/get/news")
+    Call<getNewsApiModel> getNews();
+
+    @GET("api/v1/get/event")
+    Call<getEventsApiModel> getEvents();
 
 }

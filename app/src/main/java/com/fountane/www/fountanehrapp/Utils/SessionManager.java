@@ -13,11 +13,22 @@ public class SessionManager {
     private String X_AUTH_TOKEN = "X_Auth_Token";
     private String EMP_CODE = "empCode";
     private String EMPLOYEE_NAME = "employeeName";
+    private String ATTENDANCE_STATUS = "attendance_status";
+    private String ATTENDANCE_ID = "attendance_id";
 
     public SessionManager(Context context) {
         this.ctx = context;
         sharedPreferences = ctx.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = sharedPreferences.edit();
+    }
+
+    public void setATTENDANCE_ID(Integer id){
+        editor.putInt(ATTENDANCE_ID,id);
+        editor.commit();
+    }
+
+    public Integer getATTENDANCE_ID(){
+        return sharedPreferences.getInt(ATTENDANCE_ID,0);
     }
 
     public void setEMPLOYEE_NAME(String name){
@@ -27,6 +38,15 @@ public class SessionManager {
 
     public String getEMPLOYEE_NAME(){
         return sharedPreferences.getString(EMPLOYEE_NAME,null);
+    }
+
+    public void setATTENDANCE_STATUS(boolean status){
+        editor.putBoolean(ATTENDANCE_STATUS,status);
+        editor.commit();
+    }
+
+    public boolean getAttendanceStatus(){
+        return sharedPreferences.getBoolean(ATTENDANCE_STATUS,false);
     }
 
     public void setEMP_CODE(String code){

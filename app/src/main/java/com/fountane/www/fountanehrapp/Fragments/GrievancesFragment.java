@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.fountane.www.fountanehrapp.Adapters.grievanceRecyclerAdapter;
@@ -52,6 +53,8 @@ public class GrievancesFragment extends Fragment {
     private Button postBtn;
     private SessionManager sessionManager;
     private ProgressDialog pd;
+    private ProgressDialog pdLoading;
+    private ImageView imageView;
 
 
     public GrievancesFragment() {
@@ -72,6 +75,7 @@ public class GrievancesFragment extends Fragment {
         grievanceEdtTxt = view.findViewById(R.id.grievanceDescEdtTxt);
         postBtn = view.findViewById(R.id.grievancePostBtn);
         sessionManager = new SessionManager(getActivity());
+        imageView = view.findViewById(R.id.grievanceImageView);
 
         RecyclerView.LayoutManager grievanceLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         grievanceRecycler.setLayoutManager(grievanceLayoutManager);
@@ -81,6 +85,9 @@ public class GrievancesFragment extends Fragment {
 
 
         pd = new ProgressDialog(getActivity());
+        pdLoading = new ProgressDialog(getActivity());
+        pdLoading.setMessage("Loading Grievance");
+        pdLoading.setCancelable(false);
         pd.setMessage("Creating Grievance");
         pd.setCancelable(false);
 
@@ -134,14 +141,14 @@ public class GrievancesFragment extends Fragment {
 
         final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-        pd.show();
+        pdLoading.show();
         Call<getGrievancesApiModel> call = ApiClient.getClient().getGrievances(sessionManager.getEMP_Code());
         call.enqueue(new Callback<getGrievancesApiModel>() {
             @Override
             public void onResponse(Call<getGrievancesApiModel> call, Response<getGrievancesApiModel> response) {
                 Date mydate;
                 if(response.code()==200){
-                    pd.dismiss();
+                    pdLoading.dismiss();
                     if(response.body().getGrievance().size()!=0){
                         grievancesList.clear();
                         for(int i=0;i<response.body().getGrievance().size();i++){
@@ -173,14 +180,18 @@ public class GrievancesFragment extends Fragment {
 //                        grievancesList.notify();
 
                         grievanceRecyclerAdapter.notifyDataSetChanged();
+                    }else{
+                        imageView.setVisibility(View.VISIBLE);
                     }
                 }else{
+                    pdLoading.dismiss();
                     Toast.makeText(getActivity(), "Unable to load", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<getGrievancesApiModel> call, Throwable t) {
+                pdLoading.dismiss();
                 Toast.makeText(getActivity(), "Failed to get data", Toast.LENGTH_SHORT).show();
             }
         });

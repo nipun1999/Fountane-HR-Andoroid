@@ -4,6 +4,10 @@ public class Leaves {
 
     String type,detail,date,month,time,status;
 
+    public Leaves(){
+
+    }
+
     public Leaves(String type, String detail, String date, String month, String time, String status) {
         this.type = type;
         this.detail = detail;

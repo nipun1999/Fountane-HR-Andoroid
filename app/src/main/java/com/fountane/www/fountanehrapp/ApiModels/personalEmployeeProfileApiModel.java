@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class personalEmployeeProfileApiModel {
+
     @SerializedName("success")
     @Expose
     private Boolean success;
@@ -34,6 +35,21 @@ public class personalEmployeeProfileApiModel {
         @SerializedName("empCode")
         @Expose
         private String empCode;
+        @SerializedName("status")
+        @Expose
+        private Boolean status;
+        @SerializedName("casualLeave")
+        @Expose
+        private Integer casualLeave;
+        @SerializedName("sickLeave")
+        @Expose
+        private Integer sickLeave;
+        @SerializedName("otherLeave")
+        @Expose
+        private Integer otherLeave;
+        @SerializedName("attendanceId")
+        @Expose
+        private Integer attendanceId;
         @SerializedName("name")
         @Expose
         private String name;
@@ -340,5 +356,44 @@ public class personalEmployeeProfileApiModel {
             this.deletedAt = deletedAt;
         }
 
+        public Boolean getStatus() {
+            return status;
+        }
+
+        public void setStatus(Boolean status) {
+            this.status = status;
+        }
+
+        public Integer getCasualLeave() {
+            return casualLeave;
+        }
+
+        public void setCasualLeave(Integer casualLeave) {
+            this.casualLeave = casualLeave;
+        }
+
+        public Integer getSickLeave() {
+            return sickLeave;
+        }
+
+        public void setSickLeave(Integer sickLeave) {
+            this.sickLeave = sickLeave;
+        }
+
+        public Integer getOtherLeave() {
+            return otherLeave;
+        }
+
+        public void setOtherLeave(Integer otherLeave) {
+            this.otherLeave = otherLeave;
+        }
+
+        public Integer getAttendanceId() {
+            return attendanceId;
+        }
+
+        public void setAttendanceId(Integer attendanceId) {
+            this.attendanceId = attendanceId;
+        }
     }
 }
