@@ -263,9 +263,10 @@ public class DashboardFragment extends Fragment {
                         News news = new News();
                         try {
                             mydate = df.parse(response.body().getEvents().get(i).getEventDate());
-                            String month = parseMonth(mydate.getMonth());
+                            String month = parseMonth(mydate.getMonth()+1);
                             news.setDate(Integer.toString(mydate.getDate()));
                             news.setMonth(month);
+                            news.setImageUrl(response.body().getEvents().get(i).getImageFirebaseLink().toString());
                             news.setTime(Integer.toString(mydate.getHours()) + ":" + Integer.toString(mydate.getMinutes()));
                         } catch (ParseException e) {
                             news.setDate("00");
@@ -307,9 +308,10 @@ public class DashboardFragment extends Fragment {
                         News news = new News();
                         try {
                             mydate = df.parse(response.body().getNewsobj().get(i).getDate());
-                            String month = parseMonth(mydate.getMonth());
+                            String month = parseMonth(mydate.getMonth()+1);
                             news.setDate(Integer.toString(mydate.getDate()));
                             news.setMonth(month);
+                            news.setImageUrl(response.body().getNewsobj().get(i).getImageFirebaseLink());
                             news.setTime(Integer.toString(mydate.getHours()) + ":" + Integer.toString(mydate.getMinutes()));
                         } catch (ParseException e) {
                             news.setDate("00");

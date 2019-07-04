@@ -90,6 +90,7 @@ public class NewsFragment extends Fragment {
                             String month = parseMonth(mydate.getMonth());
                             news.setDate(Integer.toString(mydate.getDate()));
                             news.setMonth(month);
+                            news.setImageUrl(response.body().getNewsobj().get(i).getImageFirebaseLink());
                             news.setTime(Integer.toString(mydate.getHours()) + ":" + Integer.toString(mydate.getMinutes()));
                         } catch (ParseException e) {
                             news.setDate("00");

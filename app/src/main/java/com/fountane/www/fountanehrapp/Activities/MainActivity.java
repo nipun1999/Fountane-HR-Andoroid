@@ -41,6 +41,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -86,6 +87,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         sessionManager = new SessionManager(this);
 
+
+
+        FirebaseMessaging.getInstance().subscribeToTopic("News");
+        FirebaseMessaging.getInstance().subscribeToTopic("Events");
 
 
 

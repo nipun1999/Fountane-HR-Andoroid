@@ -23,9 +23,9 @@
             android:padding="1dp">
 
             <ImageView
+                android:id="@+id/allnewsImageView"
                 android:layout_width="match_parent"
                 android:layout_height="162dp"
-                android:scaleType="centerCrop"
                 android:src="@drawable/dummy_filler" />
 
             <LinearLayout

@@ -47,7 +47,7 @@ public class getEventsApiModel {
         private String eventVenue;
         @SerializedName("imageFirebaseLink")
         @Expose
-        private Object imageFirebaseLink;
+        private String imageFirebaseLink;
         @SerializedName("created_at")
         @Expose
         private String createdAt;
@@ -98,11 +98,11 @@ public class getEventsApiModel {
             this.eventVenue = eventVenue;
         }
 
-        public Object getImageFirebaseLink() {
+        public String getImageFirebaseLink() {
             return imageFirebaseLink;
         }
 
-        public void setImageFirebaseLink(Object imageFirebaseLink) {
+        public void setImageFirebaseLink(String imageFirebaseLink) {
             this.imageFirebaseLink = imageFirebaseLink;
         }
 

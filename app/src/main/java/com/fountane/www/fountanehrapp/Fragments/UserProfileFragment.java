@@ -7,8 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.fountane.www.fountanehrapp.Activities.SignInActivity;
 import com.fountane.www.fountanehrapp.ApiModels.personalEmployeeProfileApiModel;
 import com.fountane.www.fountanehrapp.R;
@@ -30,6 +34,7 @@ public class UserProfileFragment extends Fragment {
     private TextView nameTxtView,designationTxtView,empCodeTxtView,contactNoTxtView,emailTxtView,dobTxtView,addressTxtView,branchTxtView,departmentTxtView;
     private SessionManager sessionManager;
     private ProgressDialog pd;
+    private ImageView profileImageView;
 
     public UserProfileFragment() {
         // Required empty public constructor
@@ -44,6 +49,7 @@ public class UserProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         nameTxtView = view.findViewById(R.id.profileNameTxtView);
+        profileImageView = view.findViewById(R.id.profileImageView);
         designationTxtView = view.findViewById(R.id.designationProfileTxtView);
         empCodeTxtView = view.findViewById(R.id.profileEmpCodeTxtView);
         contactNoTxtView = view.findViewById(R.id.profileContactTxtView);
@@ -57,6 +63,7 @@ public class UserProfileFragment extends Fragment {
         pd = new ProgressDialog(getActivity());
         pd.setMessage("loading");
         pd.setCancelable(false);
+
 
 
         getProfileData();
@@ -80,13 +87,24 @@ public class UserProfileFragment extends Fragment {
                     branchTxtView.setText(response.body().getProfile().get(0).getBranchLocation());
                     departmentTxtView.setText(response.body().getProfile().get(0).getDepartment());
                     emailTxtView.setText(response.body().getProfile().get(0).getPersonalEmail());
+                    RequestOptions requestOptions = new RequestOptions()
+                            .placeholder(R.drawable.loading)
+                            .error(R.drawable.profile_pic)
+                            .fitCenter()
+                            .override(250,161);
+                    Glide.with(getActivity())
+                            .applyDefaultRequestOptions(requestOptions)
+                            .load(response.body().getProfile().get(0).getProfilePic())
+                            .into(profileImageView);
                 }else{
                     pd.dismiss();
+                    Toast.makeText(getActivity(), "Could not load profile", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<personalEmployeeProfileApiModel> call, Throwable t) {
+                Toast.makeText(getActivity(), "Some error occured", Toast.LENGTH_SHORT).show();
                 pd.dismiss();
             }
         });

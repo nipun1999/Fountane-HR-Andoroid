@@ -1,6 +1,7 @@
 package com.fountane.www.fountanehrapp.Fragments;
 
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +27,7 @@ import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
 import com.fountane.www.fountanehrapp.Utils.EventDecorator;
 import com.fountane.www.fountanehrapp.Utils.SessionManager;
+import com.fountane.www.fountanehrapp.Utils.dateDecorator;
 import com.fountane.www.fountanehrapp.models.Attendance;
 import com.fountane.www.fountanehrapp.models.Leaves;
 import com.google.android.gms.common.api.Api;
@@ -34,6 +36,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,8 +60,12 @@ public class AttendanceFragment extends Fragment {
     private SessionManager sessionManager;
     private Date mydate;
     private MaterialCalendarView attendanceCalendarView;
-    List<CalendarDay> list = new ArrayList<CalendarDay>();
+    List<CalendarDay> presentList = new ArrayList<CalendarDay>();
+    List<CalendarDay> leaveList = new ArrayList<CalendarDay>();
+    List<CalendarDay> otherList = new ArrayList<CalendarDay>();
     private ImageView imageView;
+    private ProgressDialog pd;
+
     public AttendanceFragment() {
         // Required empty public constructor
     }
@@ -84,6 +91,18 @@ public class AttendanceFragment extends Fragment {
         attendanceCalendarView = view.findViewById(R.id.attendanceCalendarView);
         imageView = view.findViewById(R.id.attendanceImageView);
 
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("loading");
+        pd.setCancelable(false);
+
+
+
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+
+
+
         attendanceCalendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
@@ -94,11 +113,18 @@ public class AttendanceFragment extends Fragment {
         });
         prepareAttendanceData();
 
+        String temp = String.format("%02d",month+1);
+
+        getMonthlyAttendance(Integer.parseInt(temp),year);
+
+
 
         return view;
     }
 
     private void getMonthlyAttendance(final Integer month, final Integer year) {
+
+
         Call<getMonthlyAttendanceApiModel> call = ApiClient.getClient().getMonthlyAttendance(sessionManager.getEMP_Code(),Integer.toString(month),Integer.toString(year));
         call.enqueue(new Callback<getMonthlyAttendanceApiModel>() {
             @Override
@@ -109,14 +135,22 @@ public class AttendanceFragment extends Fragment {
                         Calendar calendar = Calendar.getInstance();
                         Integer date = response.body().getAttendanceobj().get(i).getDate();
                         String type = response.body().getAttendanceobj().get(i).getType();
-                        calendar.set(year,month,date);
-                        CalendarDay calendarDay = CalendarDay.from(calendar);
-                        list.add(calendarDay);
-                    }
+                        if(type.equals("present")){
+                            calendar.set(year,month-1,date);
+                            CalendarDay calendarDay = CalendarDay.from(calendar);
+                            presentList.add(calendarDay);
+                        }else if(type.contains("Leave")){
+                            calendar.set(year,month-1,date);
+                            CalendarDay calendarDay = CalendarDay.from(calendar);
+                            leaveList.add(calendarDay);
+                        }
 
-                    attendanceCalendarView.addDecorators(new EventDecorator(Color.RED,list));
+                    }
+                    attendanceCalendarView.addDecorator(new dateDecorator(Color.RED,leaveList));
+                    attendanceCalendarView.addDecorators(new dateDecorator(Color.GREEN,presentList));
+
                 }else{
-                    Toast.makeText(getActivity(), "Error occured", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Failed to fetch previous data", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -124,17 +158,20 @@ public class AttendanceFragment extends Fragment {
             @Override
             public void onFailure(Call<getMonthlyAttendanceApiModel> call, Throwable t) {
 
+                Toast.makeText(getActivity(), "Some error occured", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void prepareAttendanceData() {
+        pd.show();
         final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         attendanceList.clear();
         Call<getAttendanceApiModel> call = ApiClient.getClient().getAttendance(sessionManager.getEMP_Code());
         call.enqueue(new Callback<getAttendanceApiModel>() {
             @Override
             public void onResponse(Call<getAttendanceApiModel> call, Response<getAttendanceApiModel> response) {
+                pd.dismiss();
                 if(response.code()==200){
 
                     if(response.body().getAttendanceobj().size()!=0){
@@ -188,6 +225,7 @@ public class AttendanceFragment extends Fragment {
                         imageView.setVisibility(View.VISIBLE);
                     }
                 }else{
+
                     Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
 //                    Log.e("attendance",Integer.toString(response.code()));
 //                    Log.e("attendance",response.message());
@@ -196,7 +234,8 @@ public class AttendanceFragment extends Fragment {
 
             @Override
             public void onFailure(Call<getAttendanceApiModel> call, Throwable t) {
-
+                pd.dismiss();
+                Toast.makeText(getActivity(), "Some error occured", Toast.LENGTH_SHORT).show();
             }
         });
 //        Attendance attendance1 = new Attendance("25","Jan","Check In- 09:45 Am","Check Out - 09:00 Pm");
