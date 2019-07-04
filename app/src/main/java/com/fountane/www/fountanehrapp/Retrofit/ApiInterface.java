@@ -11,6 +11,8 @@ import com.fountane.www.fountanehrapp.ApiModels.getNewsApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.googleLoginApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.createGrievancesApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.personalEmployeeProfileApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.registrationApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.signInApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.updateAttendanceApiModel;
 
 import java.util.Map;
@@ -59,5 +61,12 @@ public interface ApiInterface {
 
     @GET("api/v1/get/event")
     Call<getEventsApiModel> getEvents();
+
+    @POST("api/v1/signup")
+    Call<registrationApiModel> createNewUser(@Body Map<String,String> body);
+
+    @POST("api/v1/checkUser/signIn")
+    Call<signInApiModel> signIn(@Body Map<String,String> body);
+
 
 }

@@ -8,9 +8,12 @@ public class registrationApiModel {
     @SerializedName("success")
     @Expose
     private Boolean success;
-    @SerializedName("register")
+    @SerializedName("checkEmail")
     @Expose
-    private Register register;
+    private CheckEmail checkEmail;
+    @SerializedName("message")
+    @Expose
+    private String message;
 
     public Boolean getSuccess() {
         return success;
@@ -20,42 +23,45 @@ public class registrationApiModel {
         this.success = success;
     }
 
-    public Register getRegister() {
-        return register;
+    public CheckEmail getCheckEmail() {
+        return checkEmail;
     }
 
-    public void setRegister(Register register) {
-        this.register = register;
+    public void setCheckEmail(CheckEmail checkEmail) {
+        this.checkEmail = checkEmail;
     }
 
-    public class Register {
+    public String getMessage() {
+        return message;
+    }
 
-        @SerializedName("created_at")
-        @Expose
-        private String createdAt;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public class CheckEmail {
+
         @SerializedName("empCode")
         @Expose
         private String empCode;
         @SerializedName("fountaneEmail")
         @Expose
         private String fountaneEmail;
+        @SerializedName("newUser")
+        @Expose
+        private Boolean newUser;
         @SerializedName("name")
         @Expose
         private String name;
+        @SerializedName("created_at")
+        @Expose
+        private String createdAt;
         @SerializedName("updated_at")
         @Expose
         private String updatedAt;
         @SerializedName("deleted_at")
         @Expose
         private Object deletedAt;
-
-        public String getCreatedAt() {
-            return createdAt;
-        }
-
-        public void setCreatedAt(String createdAt) {
-            this.createdAt = createdAt;
-        }
 
         public String getEmpCode() {
             return empCode;
@@ -73,12 +79,28 @@ public class registrationApiModel {
             this.fountaneEmail = fountaneEmail;
         }
 
+        public Boolean getNewUser() {
+            return newUser;
+        }
+
+        public void setNewUser(Boolean newUser) {
+            this.newUser = newUser;
+        }
+
         public String getName() {
             return name;
         }
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public String getCreatedAt() {
+            return createdAt;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
         }
 
         public String getUpdatedAt() {

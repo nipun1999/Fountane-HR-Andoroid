@@ -4,18 +4,23 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fountane.www.fountanehrapp.ApiModels.googleLoginApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.personalEmployeeProfileApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.registrationApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.signInApiModel;
 import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
 import com.fountane.www.fountanehrapp.Utils.SessionManager;
+import com.fountane.www.fountanehrapp.Utils.StringUtils;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -37,10 +42,13 @@ public class SignInActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 9001;
     private static final String TAG = "signIn" ;
-    private Button signInBtn;
+    private Button signInBtn,emailSignInBtn;
     private GoogleSignInClient mGoogleSignInClient;
     private SessionManager sessionManager;
     private ProgressDialog pd;
+    private TextView newUserTxtView;
+    private EditText emailEdtTxt,passwordEdtTxt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +58,10 @@ public class SignInActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
 
         signInBtn = findViewById(R.id.googleSignInBtn);
+        emailSignInBtn = findViewById(R.id.signInBtn);
+        newUserTxtView = findViewById(R.id.newUserTxtView);
+        emailEdtTxt = findViewById(R.id.emailSignEdtTxt);
+        passwordEdtTxt = findViewById(R.id.passwordSignInEdtTxt);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -59,7 +71,16 @@ public class SignInActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         pd = new ProgressDialog(SignInActivity.this);
         pd.setMessage("loading");
+
+
         pd.setCancelable(false);
+
+        emailSignInBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signInWithEmail();
+            }
+        });
 
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +89,67 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
+        newUserTxtView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent register = new Intent(SignInActivity.this,RegisterActivity.class);
+                startActivity(register);
+            }
+        });
+
+    }
+
+    private void signInWithEmail() {
+        pd.show();
+        String email = emailEdtTxt.getText().toString();
+        String password = passwordEdtTxt.getText().toString();
+        if(!StringUtils.isEmpty(email)&&!StringUtils.isEmpty(password)){
+            Map<String,String>map = new HashMap<>();
+            map.put("fountaneEmail",email+"@fountane.com");
+            map.put("password",password);
+
+            Call<signInApiModel> call = ApiClient.getClient().signIn(map);
+            call.enqueue(new Callback<signInApiModel>() {
+                @Override
+                public void onResponse(Call<signInApiModel> call, Response<signInApiModel> response) {
+                    pd.hide();
+                    if(response.code()==200){
+                        Boolean status = response.body().getStatus();
+                        String token = response.body().getToken();
+                        String empCode = response.body().getEmpCode();
+                        String name = response.body().getName();
+                        Log.e("signin",Boolean.toString(response.body().getStatus()));
+                        Log.e("signin",response.body().getToken().toString());
+                        Log.e("signin",response.body().getEmpCode());
+                        Log.e("signin",response.body().getName());
+
+                        sessionManager.setX_AUTH_TOKEN(token);
+                        sessionManager.setLogInStatus(true);
+                        sessionManager.setEMP_CODE(empCode);
+                        sessionManager.setEMPLOYEE_NAME(name);
+//                        getAttendanceStatus();
+
+                        if(status){
+                            Intent walkthrough = new Intent(SignInActivity.this,WalkthroughActivity.class);
+                            startActivity(walkthrough);
+                        }else{
+                            Intent dashboard = new Intent(SignInActivity.this,MainActivity.class);
+                            startActivity(dashboard);
+                        }
+                    }else{
+                        pd.hide();
+                        Toast.makeText(SignInActivity.this, "password incorrect", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<signInApiModel> call, Throwable t) {
+                    pd.hide();
+                    Log.e("signin",t.getMessage().toString());
+                    Toast.makeText(SignInActivity.this, "Some Error occured", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 
@@ -140,6 +222,7 @@ public class SignInActivity extends AppCompatActivity {
                     Toast.makeText(SignInActivity.this,"Eamil not registered with fountane, Please contact HR", Toast.LENGTH_SHORT).show();
                     revokeAccess();
                 }else{
+                    Log.e("signin",response.message().toString());
                     Toast.makeText(SignInActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
                     revokeAccess();
                 }
@@ -149,6 +232,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onFailure(Call<googleLoginApiModel> call, Throwable t) {
                 pd.dismiss();
                 revokeAccess();
+                Log.e("signin",t.toString());
                 Toast.makeText(SignInActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
             }
         });

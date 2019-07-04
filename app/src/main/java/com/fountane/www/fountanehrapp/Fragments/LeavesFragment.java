@@ -158,13 +158,11 @@ public class LeavesFragment extends Fragment {
                                     leave.setType("Sick Leave");
                                 }else if(response.body().getLeaves().get(i).getLeaveType().equals("casualLeave")){
                                     leave.setType("Casual Leave");
-                                }else if(response.body().getLeaves().get(i).getLeaveType().equals("optionalLeave")){
-                                    leave.setType("Optional Leave");
+                                }else if(response.body().getLeaves().get(i).getLeaveType().equals("otherLeave")){
+                                    leave.setType("Other Leave");
                                 }
 
                                 leave.setDetail(response.body().getLeaves().get(i).getFromDate()+" "+"To"+" "+response.body().getLeaves().get(i).getToDate());
-
-
 
                             } catch (ParseException e) {
                                 leave.setDate("00");

@@ -150,6 +150,7 @@ public class GrievancesFragment extends Fragment {
                 if(response.code()==200){
                     pdLoading.dismiss();
                     if(response.body().getGrievance().size()!=0){
+                        imageView.setVisibility(View.GONE);
                         grievancesList.clear();
                         for(int i=0;i<response.body().getGrievance().size();i++){
                             Grievances grievance = new Grievances();
