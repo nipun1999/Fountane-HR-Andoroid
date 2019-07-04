@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".Utils.App"
@@ -26,19 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service
-            android:name=".Utils.ServiceNoDelay"
-            android:enabled="true" />
 
-        <receiver
-            android:name=".Utils.ServiceRestarterBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:label="RestartServiceWhenStopped">
-            <intent-filter>
-                <action android:name="RestartService" />
-            </intent-filter>
-        </receiver>
 
         <activity android:name=".Activities.RegisterActivity" />
         <activity

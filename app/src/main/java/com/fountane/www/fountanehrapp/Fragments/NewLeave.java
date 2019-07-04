@@ -95,9 +95,7 @@ public class NewLeave extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s.setAdapter(adapter);
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             myCalendar = Calendar.getInstance();
-        }
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -105,12 +103,10 @@ public class NewLeave extends Fragment {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
                 // TODO Auto-generated method stub
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     myCalendar.set(Calendar.YEAR, year);
                     myCalendar.set(Calendar.MONTH, monthOfYear);
                     myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                     updateFromTxtView();
-                }
             }
         };
 
@@ -121,12 +117,10 @@ public class NewLeave extends Fragment {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
                 // TODO Auto-generated method stub
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     myCalendar.set(Calendar.YEAR, year);
                     myCalendar.set(Calendar.MONTH, monthOfYear);
                     myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                     updateToTxtView();
-                }
             }
         };
 
@@ -134,22 +128,18 @@ public class NewLeave extends Fragment {
         fromTxtView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     new DatePickerDialog(getActivity(), date, myCalendar
                             .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                             myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                }
             }
         });
 
         toTxtView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     new DatePickerDialog(getActivity(), date2, myCalendar
                             .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                             myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                }
             }
         });
 
@@ -201,7 +191,7 @@ public class NewLeave extends Fragment {
                 optionalBtn.setTextColor(getResources().getColor(R.color.optionslColor));
                 wfhBtn.setTextColor(getResources().getColor(R.color.wfhColor));
                 sickBtn.setTextColor(getResources().getColor(R.color.sickColor));
-                type="otherLeave";
+                type="paidLeave";
             }
         });
 
@@ -295,17 +285,13 @@ public class NewLeave extends Fragment {
     private void updateToTxtView() {
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             toTxtView.setText(sdf.format(myCalendar.getTime()));
-        }
     }
 
     private void updateFromTxtView() {
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             fromTxtView.setText(sdf.format(myCalendar.getTime()));
-        }
     }
 
 }

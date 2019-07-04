@@ -156,7 +156,7 @@ public class GrievancesFragment extends Fragment {
                             Grievances grievance = new Grievances();
                             try {
                                 mydate = df.parse(response.body().getGrievance().get(i).getCreatedAt());
-                                String month = parseMonth(mydate.getMonth());
+                                String month = parseMonth(mydate.getMonth()+1);
                                 grievance.setDate(Integer.toString(mydate.getDate()));
                                 Log.e("grievanced",Integer.toString(mydate.getDate()));
                                 Log.e("grievancet",Long.toString(mydate.getTime()));

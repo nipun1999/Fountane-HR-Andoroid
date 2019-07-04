@@ -127,9 +127,7 @@ public class DashboardFragment extends Fragment {
 
                 if(!sessionManager.getAttendanceStatus()){
                     pd.show();
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-                    }
+                    date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     Date currentTime = Calendar.getInstance().getTime();
                     Log.e("date",date);
                     Log.e("date",currentTime.toString());
@@ -162,12 +160,10 @@ public class DashboardFragment extends Fragment {
                 }else{
 
                     Map<String,String> map = new HashMap<>();
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                         date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-                    }
                     Date currentTime = Calendar.getInstance().getTime();
-                    Log.e("date",date);
-                    Log.e("date",currentTime.toString());
+//                    Log.e("date",date);
+//                    Log.e("date",currentTime.toString());
 
                     map.put("attendanceId",Integer.toString(sessionManager.getATTENDANCE_ID()));
                     map.put("checkOut",date+" "+currentTime.getHours()+":"+currentTime.getMinutes()+":"+currentTime.getSeconds());

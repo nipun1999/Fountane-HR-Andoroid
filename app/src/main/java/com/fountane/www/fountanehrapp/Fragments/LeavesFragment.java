@@ -118,6 +118,7 @@ public class LeavesFragment extends Fragment {
                     casualTxtView.setText(Integer.toString(response.body().getProfile().get(0).getCasualLeave()));
                     sickTxtView.setText(Integer.toString(response.body().getProfile().get(0).getSickLeave()));
                     optionalTxtView.setText(Integer.toString(response.body().getProfile().get(0).getOtherLeave()));
+                    paidTxtView.setText(Integer.toString(response.body().getProfile().get(0).getPaidLeave()));
                 }else{
                     Toast.makeText(getActivity(), "Some error occured in retrieving leaves data", Toast.LENGTH_SHORT).show();
                 }
@@ -160,6 +161,8 @@ public class LeavesFragment extends Fragment {
                                     leave.setType("Casual Leave");
                                 }else if(response.body().getLeaves().get(i).getLeaveType().equals("otherLeave")){
                                     leave.setType("Other Leave");
+                                }else if(response.body().getLeaves().get(i).getLeaveType().equals("paidLeave")){
+                                    leave.setType("Paid Leave");
                                 }
 
                                 leave.setDetail(response.body().getLeaves().get(i).getFromDate()+" "+"To"+" "+response.body().getLeaves().get(i).getToDate());

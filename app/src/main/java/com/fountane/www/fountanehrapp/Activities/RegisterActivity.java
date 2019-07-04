@@ -77,7 +77,6 @@ public class RegisterActivity extends AppCompatActivity {
         Map<String,String> map = new HashMap<>();
         map.put("fountaneEmail",email+"@fountane.com");
         map.put("password",password);
-        map.put("roleId","1");
 
         Call<registrationApiModel> call = ApiClient.getClient().createNewUser(map);
         call.enqueue(new Callback<registrationApiModel>() {

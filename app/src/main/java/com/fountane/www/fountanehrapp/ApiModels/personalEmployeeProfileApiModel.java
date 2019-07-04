@@ -47,6 +47,9 @@ public class personalEmployeeProfileApiModel {
         @SerializedName("otherLeave")
         @Expose
         private Integer otherLeave;
+        @SerializedName("paidLeave")
+        @Expose
+        private Integer paidLeave;
         @SerializedName("attendanceId")
         @Expose
         private Integer attendanceId;
@@ -394,6 +397,14 @@ public class personalEmployeeProfileApiModel {
 
         public void setAttendanceId(Integer attendanceId) {
             this.attendanceId = attendanceId;
+        }
+
+        public Integer getPaidLeave() {
+            return paidLeave;
+        }
+
+        public void setPaidLeave(Integer paidLeave) {
+            this.paidLeave = paidLeave;
         }
     }
 }
