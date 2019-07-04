@@ -1,6 +1,7 @@
 package com.fountane.www.fountanehrapp.Fragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -57,7 +58,6 @@ public class AttendanceFragment extends Fragment {
     private Date mydate;
     private MaterialCalendarView attendanceCalendarView;
     List<CalendarDay> list = new ArrayList<CalendarDay>();
-    private List<CalendarDay> calendarDays;
     private ImageView imageView;
     public AttendanceFragment() {
         // Required empty public constructor
@@ -89,7 +89,7 @@ public class AttendanceFragment extends Fragment {
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
                 Integer month = date.getMonth() + 1;
                 Integer year = date.getYear();
-//                getMonthlyAttendance(month,year);
+                getMonthlyAttendance(month,year);
             }
         });
         prepareAttendanceData();
@@ -104,17 +104,20 @@ public class AttendanceFragment extends Fragment {
             @Override
             public void onResponse(Call<getMonthlyAttendanceApiModel> call, Response<getMonthlyAttendanceApiModel> response) {
 
-                for(int i=0;i<response.body().getAttendanceobj().size();i++){
-                    Calendar calendar = Calendar.getInstance();
-                    Integer date = response.body().getAttendanceobj().get(i).getDate();
-                    String type = response.body().getAttendanceobj().get(i).getType();
-                    calendar.set(year,month,date);
-                    CalendarDay calendarDay = CalendarDay.from(calendar);
-                    list.add(calendarDay);
-                }
+                if(response.code()==200){
+                    for(int i=0;i<response.body().getAttendanceobj().size();i++){
+                        Calendar calendar = Calendar.getInstance();
+                        Integer date = response.body().getAttendanceobj().get(i).getDate();
+                        String type = response.body().getAttendanceobj().get(i).getType();
+                        calendar.set(year,month,date);
+                        CalendarDay calendarDay = CalendarDay.from(calendar);
+                        list.add(calendarDay);
+                    }
 
-                calendarDays = list;
-//                attendanceCalendarView.addDecorators(new EventDecorator(myColor, calendarDays));
+                    attendanceCalendarView.addDecorators(new EventDecorator(Color.RED,list));
+                }else{
+                    Toast.makeText(getActivity(), "Error occured", Toast.LENGTH_SHORT).show();
+                }
 
             }
 

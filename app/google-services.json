@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "498233300103",
+    "firebase_url": "https://fountane-hr-app.firebaseio.com",
+    "project_id": "fountane-hr-app",
+    "storage_bucket": "fountane-hr-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498233300103:android:4bc578e1e16c86f3",
+        "android_client_info": {
+          "package_name": "com.fountane.www.fountanehrapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498233300103-ah5f7sde0n4fus9amiatmqnas3obhgmq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fountane.www.fountanehrapp",
+            "certificate_hash": "a9bde7d8422265b69b0d59f3fbad39086e008a7f"
+          }
+        },
+        {
+          "client_id": "498233300103-49tjdmjalsu5frr7vsig3a2hf36mclm8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIszEYeZI1WDcqeRerAPwig85Y2RWNTv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498233300103-49tjdmjalsu5frr7vsig3a2hf36mclm8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
