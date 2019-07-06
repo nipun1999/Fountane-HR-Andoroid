@@ -101,7 +101,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void signInWithEmail() {
         pd.show();
-        String email = emailEdtTxt.getText().toString();
+        final String email = emailEdtTxt.getText().toString();
         String password = passwordEdtTxt.getText().toString();
         if(!StringUtils.isEmpty(email)&&!StringUtils.isEmpty(password)){
             Map<String,String>map = new HashMap<>();
@@ -127,6 +127,7 @@ public class SignInActivity extends AppCompatActivity {
                         sessionManager.setLogInStatus(true);
                         sessionManager.setEMP_CODE(empCode);
                         sessionManager.setEMPLOYEE_NAME(name);
+                        sessionManager.setEMAIL_ID(email+"@fountane.com");
 //                        getAttendanceStatus();
 
                         if(status){
@@ -191,6 +192,7 @@ public class SignInActivity extends AppCompatActivity {
     private void authenticateFromServer(String idToken) {
         pd.show();
         Map<String, String> map = new HashMap<>();
+
         map.put("idToken",idToken);
         Call<googleLoginApiModel> call = ApiClient.getClient().signInGoogle(map);
         call.enqueue(new Callback<googleLoginApiModel>() {
@@ -219,6 +221,7 @@ public class SignInActivity extends AppCompatActivity {
                         startActivity(dashboard);
                     }
                 }else if(response.code()==500){
+                    Log.e("signin",response.message());
                     Toast.makeText(SignInActivity.this,"Eamil not registered with fountane, Please contact HR", Toast.LENGTH_SHORT).show();
                     revokeAccess();
                 }else{

@@ -8,6 +8,7 @@ import com.fountane.www.fountanehrapp.ApiModels.getGrievancesApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.getLeavesApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.getMonthlyAttendanceApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.getNewsApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.getPeopleDepartmentWise;
 import com.fountane.www.fountanehrapp.ApiModels.googleLoginApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.createGrievancesApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.personalEmployeeProfileApiModel;
@@ -67,6 +68,9 @@ public interface ApiInterface {
 
     @POST("api/v1/checkUser/signIn")
     Call<signInApiModel> signIn(@Body Map<String,String> body);
+
+    @GET("api/v1/get/departmentWise")
+    Call<getPeopleDepartmentWise> getPeople(@Query("role_responsibility")String responsibility,@Query("department")String department);
 
 
 }

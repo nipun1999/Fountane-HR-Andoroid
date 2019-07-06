@@ -3,6 +3,9 @@ package com.fountane.www.fountanehrapp.Retrofit;
 import com.fountane.www.fountanehrapp.Utils.App;
 import com.fountane.www.fountanehrapp.Utils.SessionManager;
 import com.google.api.client.util.StringUtils;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -17,10 +20,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
     private static ApiInterface apiInterface;
 
+
     public static ApiInterface getClient() {
         if (apiInterface == null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://206.189.130.168:4192/")
+                    .baseUrl("https://hrapp.o.fountane.xyz/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(getHttpClient()).build();
 

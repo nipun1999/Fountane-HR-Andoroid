@@ -15,11 +15,21 @@ public class SessionManager {
     private String EMPLOYEE_NAME = "employeeName";
     private String ATTENDANCE_STATUS = "attendance_status";
     private String ATTENDANCE_ID = "attendance_id";
+    private String EMAIL_ID = "email_id";
 
     public SessionManager(Context context) {
         this.ctx = context;
         sharedPreferences = ctx.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = sharedPreferences.edit();
+    }
+
+    public void setEMAIL_ID(String email){
+        editor.putString(EMAIL_ID,email);
+        editor.commit();
+    }
+
+    public String getEMAIL_ID(){
+        return sharedPreferences.getString(EMAIL_ID,null);
     }
 
     public void setATTENDANCE_ID(Integer id){

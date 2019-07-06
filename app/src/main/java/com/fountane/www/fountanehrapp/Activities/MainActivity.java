@@ -65,13 +65,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     transaction.replace(R.id.content,new DashboardFragment()).addToBackStack("tag").commit();
                     return true;
                 case R.id.nav1:
-
+                    Toast.makeText(MainActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.nav2:
                     transaction.replace(R.id.content,new AttendanceFragment()).addToBackStack("tag").commit();
                     return true;
                 case R.id.nav3:
-
+                    Toast.makeText(MainActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
                     return true;
             }
             return false;

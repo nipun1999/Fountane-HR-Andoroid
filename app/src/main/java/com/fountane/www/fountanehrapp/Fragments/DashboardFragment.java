@@ -2,16 +2,15 @@ package com.fountane.www.fountanehrapp.Fragments;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fountane.www.fountanehrapp.Activities.SignInActivity;
+import com.fountane.www.fountanehrapp.Activities.HierarchyTabbedActivity;
 import com.fountane.www.fountanehrapp.Adapters.newsRecyclerAdapter;
 import com.fountane.www.fountanehrapp.ApiModels.CreateAttendanceApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.getEventsApiModel;
@@ -32,6 +31,12 @@ import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
 import com.fountane.www.fountanehrapp.Utils.SessionManager;
 import com.fountane.www.fountanehrapp.models.News;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -63,6 +68,12 @@ public class DashboardFragment extends Fragment {
     private String date;
     private ProgressDialog pd;
     private Date mydate;
+    private DatabaseReference mdatabase;
+    private ImageView noNewsImageView,noEventsImageView;
+    long cacheExpiration = 43200;
+    private FirebaseRemoteConfig firebaseRemoteConfig;
+    private String adminEmail;
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -78,17 +89,62 @@ public class DashboardFragment extends Fragment {
         grievancesBtn = view.findViewById(R.id.grievancesLayout);
         leavesBtn = view.findViewById(R.id.leavesLayout);
         payslipsBtn = view.findViewById(R.id.payslipsLayout);
-        documentsBtn = view.findViewById(R.id.documentsLayout);
+        documentsBtn = view.findViewById(R.id.adminLayout);
         newsRecycler = view.findViewById(R.id.newsRecyclerView);
         eventsRecycler = view.findViewById(R.id.eventsRecyclerView);
         checkInBtn = view.findViewById(R.id.checkInBtn);
         newsViewAll = view.findViewById(R.id.newsViewAll);
+        noNewsImageView = view.findViewById(R.id.noNewsImageView);
+        noEventsImageView = view.findViewById(R.id.noEventImageView);
 
         sessionManager=new SessionManager(getActivity());
 
         pd = new ProgressDialog(getActivity());
         pd.setMessage("loading");
         pd.setCancelable(false);
+
+        mdatabase = FirebaseDatabase.getInstance().getReference().child("admin");
+        pd.show();
+        mdatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                pd.dismiss();
+                adminEmail = dataSnapshot.child("email").getValue().toString();
+                Log.e("email",adminEmail);
+                Log.e("email",sessionManager.getEMAIL_ID());
+                if(adminEmail.equals(sessionManager.getEMAIL_ID())){
+                    documentsBtn.setVisibility(View.VISIBLE);
+                }else{
+                    documentsBtn.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                pd.dismiss();
+            }
+        });
+
+
+//        adminEmail = firebaseRemoteConfig.getString("admin_email");
+
+
+//        firebaseRemoteConfig.fetch(getCacheExpiration())
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()) {
+//                            firebaseRemoteConfig.activateFetched();
+//                            adminEmail = firebaseRemoteConfig.getString("admin_email");
+//                            Toast.makeText(getActivity(), "Task Successful", Toast.LENGTH_SHORT).show();
+//                            // We got our config, let's do something with it!
+//                        } else {
+//                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();// Looks like there was a problem getting the config...
+//                        }
+//
+//                    }
+//                });
+
 
         newsRecyclerAdapter = new newsRecyclerAdapter(newsList);
         eventsRecyclerAdapter = new newsRecyclerAdapter(eventsList);
@@ -106,6 +162,7 @@ public class DashboardFragment extends Fragment {
 
         Log.e("attendance",Boolean.toString(sessionManager.getAttendanceStatus()));
         getAttendanceStatus();
+
 
 
 
@@ -228,9 +285,12 @@ public class DashboardFragment extends Fragment {
         documentsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.content,new DocumentListFragment()).addToBackStack("tag").commit();
+
+                Intent adminScreen = new Intent(getActivity(),HierarchyTabbedActivity.class);
+                startActivity(adminScreen);
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction transaction = fragmentManager.beginTransaction();
+//                transaction.replace(R.id.content,new DocumentListFragment()).addToBackStack("tag").commit();
             }
         });
 
@@ -259,26 +319,34 @@ public class DashboardFragment extends Fragment {
             public void onResponse(retrofit2.Call<getEventsApiModel> call, Response<getEventsApiModel> response) {
                 pd.hide();
                 if(response.code()==200) {
-                    for (int i = 0; i < response.body().getEvents().size(); i++) {
-                        News news = new News();
-                        try {
-                            mydate = df.parse(response.body().getEvents().get(i).getEventDate());
-                            String month = parseMonth(mydate.getMonth()+1);
-                            news.setDate(Integer.toString(mydate.getDate()));
-                            news.setMonth(month);
-                            news.setImageUrl(response.body().getEvents().get(i).getImageFirebaseLink().toString());
-                            news.setTime(Integer.toString(mydate.getHours()) + ":" + Integer.toString(mydate.getMinutes()));
-                        } catch (ParseException e) {
-                            news.setDate("00");
-                            news.setTime("00");
-                            news.setMonth("00");
-                            e.printStackTrace();
+
+                    if(response.body().getEvents().size()!=0){
+                            noEventsImageView.setVisibility(View.GONE);
+                        for (int i = 0; i < response.body().getEvents().size(); i++) {
+                            News news = new News();
+                            try {
+                                mydate = df.parse(response.body().getEvents().get(i).getEventDate());
+                                String month = parseMonth(mydate.getMonth()+1);
+                                news.setDate(Integer.toString(mydate.getDate()));
+                                news.setMonth(month);
+                                news.setImageUrl(response.body().getEvents().get(i).getImageFirebaseLink().toString());
+                                news.setTime(Integer.toString(mydate.getHours()) + ":" + Integer.toString(mydate.getMinutes()));
+                            } catch (ParseException e) {
+                                news.setDate("00");
+                                news.setTime("00");
+                                news.setMonth("00");
+                                e.printStackTrace();
+                            }
+                            news.setTitle(response.body().getEvents().get(i).getName());
+                            news.setPublishedby(response.body().getEvents().get(i).getEventVenue());
+                            eventsList.add(news);
                         }
-                        news.setTitle(response.body().getEvents().get(i).getName());
-                        news.setPublishedby(response.body().getEvents().get(i).getEventVenue());
-                        eventsList.add(news);
+                        eventsRecyclerAdapter.notifyDataSetChanged();
+
+                    }else{
+
+                        noEventsImageView.setVisibility(View.VISIBLE);
                     }
-                    eventsRecyclerAdapter.notifyDataSetChanged();
                 }else{
                     pd.hide();
                     Toast.makeText(getActivity(), "Some Error Occured", Toast.LENGTH_SHORT).show();
@@ -304,26 +372,31 @@ public class DashboardFragment extends Fragment {
             public void onResponse(retrofit2.Call<getNewsApiModel> call, Response<getNewsApiModel> response) {
                 pd.hide();
                 if(response.code()==200) {
-                    for (int i = 0; i < response.body().getNewsobj().size(); i++) {
-                        News news = new News();
-                        try {
-                            mydate = df.parse(response.body().getNewsobj().get(i).getDate());
-                            String month = parseMonth(mydate.getMonth()+1);
-                            news.setDate(Integer.toString(mydate.getDate()));
-                            news.setMonth(month);
-                            news.setImageUrl(response.body().getNewsobj().get(i).getImageFirebaseLink());
-                            news.setTime(Integer.toString(mydate.getHours()) + ":" + Integer.toString(mydate.getMinutes()));
-                        } catch (ParseException e) {
-                            news.setDate("00");
-                            news.setTime("00");
-                            news.setMonth("00");
-                            e.printStackTrace();
+                    if(response.body().getNewsobj().size()!=0){
+                        noNewsImageView.setVisibility(View.GONE);
+                        for (int i = 0; i < response.body().getNewsobj().size(); i++) {
+                            News news = new News();
+                            try {
+                                mydate = df.parse(response.body().getNewsobj().get(i).getDate());
+                                String month = parseMonth(mydate.getMonth()+1);
+                                news.setDate(Integer.toString(mydate.getDate()));
+                                news.setMonth(month);
+                                news.setImageUrl(response.body().getNewsobj().get(i).getImageFirebaseLink());
+                                news.setTime(Integer.toString(mydate.getHours()) + ":" + Integer.toString(mydate.getMinutes()));
+                            } catch (ParseException e) {
+                                news.setDate("00");
+                                news.setTime("00");
+                                news.setMonth("00");
+                                e.printStackTrace();
+                            }
+                            news.setTitle(response.body().getNewsobj().get(i).getTitle());
+                            news.setPublishedby(response.body().getNewsobj().get(i).getVenue());
+                            newsList.add(news);
                         }
-                        news.setTitle(response.body().getNewsobj().get(i).getTitle());
-                        news.setPublishedby(response.body().getNewsobj().get(i).getVenue());
-                        newsList.add(news);
+                        newsRecyclerAdapter.notifyDataSetChanged();
+                    }else{
+                        noNewsImageView.setVisibility(View.VISIBLE);
                     }
-                    newsRecyclerAdapter.notifyDataSetChanged();
                 }else{
                     pd.hide();
                     Toast.makeText(getActivity(), "Some Error Occured", Toast.LENGTH_SHORT).show();
@@ -372,6 +445,7 @@ public class DashboardFragment extends Fragment {
             }
         });
     }
+
 
 
     private String parseMonth(int month) {

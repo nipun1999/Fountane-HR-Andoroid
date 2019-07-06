@@ -22,6 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="21dp"
                 android:gravity="center_horizontal"
                 android:text="Actions"
@@ -29,9 +30,11 @@
                 android:textSize="20sp" />
 
             <HorizontalScrollView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="none">
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -39,6 +42,40 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
+
+
+                    <RelativeLayout
+                        android:id="@+id/adminLayout"
+                        android:layout_width="90dp"
+                        android:layout_height="50dp"
+                        android:visibility="gone"
+                        android:background="@drawable/dashboard_button_4_ripple_effect"
+                        android:clickable="true"
+                        android:elevation="2dp"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="7dp"
+                            android:src="@drawable/ic_archive_1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/imageView4"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:text="HR"
+                            android:textColor="#f99483"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/grievancesLayout"
@@ -139,40 +176,6 @@
 
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/documentsLayout"
-                        android:layout_width="90dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:background="@drawable/dashboard_button_4_ripple_effect"
-                        android:clickable="true"
-                        android:elevation="2dp"
-                        android:focusable="true">
-
-                        <ImageView
-                            android:id="@+id/imageView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="7dp"
-                            android:src="@drawable/ic_archive_1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/imageView4"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center_horizontal"
-                            android:text="Documents"
-                            android:textColor="#f99483"
-                            android:textSize="14sp" />
-
-                    </RelativeLayout>
-
                 </LinearLayout>
 
             </HorizontalScrollView>
@@ -207,6 +210,17 @@
                     android:textSize="14sp" />
             </RelativeLayout>
 
+
+
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:id="@+id/noNewsImageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:visibility="gone"
+                android:src="@drawable/newspaper"
+                android:layout_gravity="center"/>
+
             <android.support.v7.widget.RecyclerView
                 android:layout_marginLeft="20dp"
                 android:id="@+id/newsRecyclerView"
@@ -230,19 +244,17 @@
                     android:text="Events"
                     android:textColor="#37394c"
                     android:textSize="20sp" />
-
-                <TextView
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="15dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:text="View All"
-                    android:textColor="#0091ff"
-                    android:textSize="14sp" />
             </RelativeLayout>
+
+
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:id="@+id/noEventImageView"
+                android:visibility="gone"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/event"
+                android:layout_gravity="center"/>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_marginLeft="20dp"

@@ -14,4 +14,9 @@
     <string name="server_client_id"> 498233300103-3p9u6r2rmlru42i40d421ju1ljosdca9.apps.googleusercontent.com </string>
     <string name="title_activity_main">DashBoard</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="title_activity_hierarchy">HierarchyActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
