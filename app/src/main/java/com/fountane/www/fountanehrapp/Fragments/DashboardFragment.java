@@ -57,9 +57,9 @@ import retrofit2.Response;
  */
 public class DashboardFragment extends Fragment {
 
-    private RelativeLayout grievancesBtn,leavesBtn,payslipsBtn,documentsBtn;
-    private RecyclerView newsRecycler,eventsRecycler;
-    private newsRecyclerAdapter newsRecyclerAdapter,eventsRecyclerAdapter;
+    private RelativeLayout grievancesBtn, leavesBtn, payslipsBtn, documentsBtn;
+    private RecyclerView newsRecycler, eventsRecycler;
+    private newsRecyclerAdapter newsRecyclerAdapter, eventsRecyclerAdapter;
     private TextView newsViewAll;
     private List<News> newsList = new ArrayList<>();
     private List<News> eventsList = new ArrayList<>();
@@ -69,7 +69,7 @@ public class DashboardFragment extends Fragment {
     private ProgressDialog pd;
     private Date mydate;
     private DatabaseReference mdatabase;
-    private ImageView noNewsImageView,noEventsImageView;
+    private ImageView noNewsImageView, noEventsImageView;
     long cacheExpiration = 43200;
     private FirebaseRemoteConfig firebaseRemoteConfig;
     private String adminEmail;
@@ -97,7 +97,7 @@ public class DashboardFragment extends Fragment {
         noNewsImageView = view.findViewById(R.id.noNewsImageView);
         noEventsImageView = view.findViewById(R.id.noEventImageView);
 
-        sessionManager=new SessionManager(getActivity());
+        sessionManager = new SessionManager(getActivity());
 
         pd = new ProgressDialog(getActivity());
         pd.setMessage("loading");
@@ -110,11 +110,11 @@ public class DashboardFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 pd.dismiss();
                 adminEmail = dataSnapshot.child("email").getValue().toString();
-                Log.e("email",adminEmail);
-                Log.e("email",sessionManager.getEMAIL_ID());
-                if(adminEmail.equals(sessionManager.getEMAIL_ID())){
+                Log.e("email", adminEmail);
+                Log.e("email", sessionManager.getEMAIL_ID());
+                if (adminEmail.equals(sessionManager.getEMAIL_ID())) {
                     documentsBtn.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     documentsBtn.setVisibility(View.GONE);
                 }
             }
@@ -146,11 +146,11 @@ public class DashboardFragment extends Fragment {
 //                });
 
 
-        newsRecyclerAdapter = new newsRecyclerAdapter(newsList);
-        eventsRecyclerAdapter = new newsRecyclerAdapter(eventsList);
+        newsRecyclerAdapter = new newsRecyclerAdapter(newsList, getActivity());
+        eventsRecyclerAdapter = new newsRecyclerAdapter(eventsList, getActivity());
 
-        RecyclerView.LayoutManager newsLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
-        RecyclerView.LayoutManager eventsLayoutmanager = new LinearLayoutManager(getActivity().getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager newsLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView.LayoutManager eventsLayoutmanager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
 
         newsRecycler.setLayoutManager(newsLayoutManager);
         newsRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -160,13 +160,8 @@ public class DashboardFragment extends Fragment {
         eventsRecycler.setItemAnimator(new DefaultItemAnimator());
         eventsRecycler.setAdapter(eventsRecyclerAdapter);
 
-        Log.e("attendance",Boolean.toString(sessionManager.getAttendanceStatus()));
+        Log.e("attendance", Boolean.toString(sessionManager.getAttendanceStatus()));
         getAttendanceStatus();
-
-
-
-
-
 
 
         newsViewAll.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +169,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.content,new NewsFragment()).addToBackStack("tag").commit();
+                transaction.replace(R.id.content, new NewsFragment()).addToBackStack("tag").commit();
             }
         });
 
@@ -182,28 +177,28 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(!sessionManager.getAttendanceStatus()){
+                if (!sessionManager.getAttendanceStatus()) {
                     pd.show();
                     date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     Date currentTime = Calendar.getInstance().getTime();
-                    Log.e("date",date);
-                    Log.e("date",currentTime.toString());
-                    Map<String,String> map = new HashMap<>();
-                    map.put("empCode",sessionManager.getEMP_Code());
-                    map.put("date",date);
-                    map.put("checkIn",date+" "+currentTime.getHours()+":"+currentTime.getMinutes()+":"+currentTime.getSeconds());
+                    Log.e("date", date);
+                    Log.e("date", currentTime.toString());
+                    Map<String, String> map = new HashMap<>();
+                    map.put("empCode", sessionManager.getEMP_Code());
+                    map.put("date", date);
+                    map.put("checkIn", date + " " + currentTime.getHours() + ":" + currentTime.getMinutes() + ":" + currentTime.getSeconds());
 
                     retrofit2.Call<CreateAttendanceApiModel> call = ApiClient.getClient().createAttendance(map);
                     call.enqueue(new Callback<CreateAttendanceApiModel>() {
                         @Override
                         public void onResponse(retrofit2.Call<CreateAttendanceApiModel> call, Response<CreateAttendanceApiModel> response) {
                             pd.hide();
-                            if(response.code()==200){
+                            if (response.code() == 200) {
                                 sessionManager.setATTENDANCE_ID(response.body().getAttendanceobj().getAttendanceId());
                                 sessionManager.setATTENDANCE_STATUS(true);
                                 checkInBtn.setImageResource(R.drawable.ic_check_out);
                                 Toast.makeText(getActivity(), "Checked In Succesfully", Toast.LENGTH_SHORT).show();
-                            }else{
+                            } else {
                                 Toast.makeText(getActivity(), "Failed to check in", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -214,30 +209,30 @@ public class DashboardFragment extends Fragment {
                             Toast.makeText(getActivity(), "Some error Occured", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }else{
+                } else {
 
-                    Map<String,String> map = new HashMap<>();
-                        date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                    Map<String, String> map = new HashMap<>();
+                    date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                     Date currentTime = Calendar.getInstance().getTime();
 //                    Log.e("date",date);
 //                    Log.e("date",currentTime.toString());
 
-                    map.put("attendanceId",Integer.toString(sessionManager.getATTENDANCE_ID()));
-                    map.put("checkOut",date+" "+currentTime.getHours()+":"+currentTime.getMinutes()+":"+currentTime.getSeconds());
-                    Log.e("attendance",date+" "+currentTime.getHours()+":"+currentTime.getMinutes()+":"+currentTime.getSeconds());
+                    map.put("attendanceId", Integer.toString(sessionManager.getATTENDANCE_ID()));
+                    map.put("checkOut", date + " " + currentTime.getHours() + ":" + currentTime.getMinutes() + ":" + currentTime.getSeconds());
+                    Log.e("attendance", date + " " + currentTime.getHours() + ":" + currentTime.getMinutes() + ":" + currentTime.getSeconds());
                     pd.show();
                     retrofit2.Call<updateAttendanceApiModel> call = ApiClient.getClient().updateAttendance(map);
                     call.enqueue(new Callback<updateAttendanceApiModel>() {
                         @Override
                         public void onResponse(retrofit2.Call<updateAttendanceApiModel> call, Response<updateAttendanceApiModel> response) {
                             pd.hide();
-                            if(response.code()==200){
+                            if (response.code() == 200) {
                                 sessionManager.setATTENDANCE_STATUS(false);
                                 checkInBtn.setImageResource(R.drawable.ic_check_in);
                                 Toast.makeText(getActivity(), "Checked Out Successfully", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Log.e("attendance",Integer.toString(response.code()));
-                                Log.e("attendance",response.message().toString());
+                            } else {
+                                Log.e("attendance", Integer.toString(response.code()));
+                                Log.e("attendance", response.message().toString());
                                 Toast.makeText(getActivity(), "Some error", Toast.LENGTH_SHORT).show();
                             }
 
@@ -261,7 +256,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.content,new GrievancesFragment()).addToBackStack("tag").commit();
+                transaction.replace(R.id.content, new GrievancesFragment()).addToBackStack("tag").commit();
 
             }
         });
@@ -269,9 +264,9 @@ public class DashboardFragment extends Fragment {
         leavesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction transaction = fragmentManager.beginTransaction();
-                        transaction.replace(R.id.content,new LeavesFragment()).addToBackStack("tag").commit();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.content, new LeavesFragment()).addToBackStack("tag").commit();
             }
         });
         payslipsBtn.setOnClickListener(new View.OnClickListener() {
@@ -279,14 +274,14 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.content,new PayslipsAndOthersFragment()).addToBackStack("tag").commit();
+                transaction.replace(R.id.content, new PayslipsAndOthersFragment()).addToBackStack("tag").commit();
             }
         });
         documentsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent adminScreen = new Intent(getActivity(),HierarchyTabbedActivity.class);
+                Intent adminScreen = new Intent(getActivity(), HierarchyTabbedActivity.class);
                 startActivity(adminScreen);
 //                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 //                FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -303,9 +298,6 @@ public class DashboardFragment extends Fragment {
         return view;
 
 
-
-
-
     }
 
     private void getEvents() {
@@ -318,15 +310,15 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onResponse(retrofit2.Call<getEventsApiModel> call, Response<getEventsApiModel> response) {
                 pd.hide();
-                if(response.code()==200) {
+                if (response.code() == 200) {
 
-                    if(response.body().getEvents().size()!=0){
-                            noEventsImageView.setVisibility(View.GONE);
+                    if (response.body().getEvents().size() != 0) {
+                        noEventsImageView.setVisibility(View.GONE);
                         for (int i = 0; i < response.body().getEvents().size(); i++) {
                             News news = new News();
                             try {
                                 mydate = df.parse(response.body().getEvents().get(i).getEventDate());
-                                String month = parseMonth(mydate.getMonth()+1);
+                                String month = parseMonth(mydate.getMonth() + 1);
                                 news.setDate(Integer.toString(mydate.getDate()));
                                 news.setMonth(month);
                                 news.setImageUrl(response.body().getEvents().get(i).getImageFirebaseLink().toString());
@@ -343,11 +335,11 @@ public class DashboardFragment extends Fragment {
                         }
                         eventsRecyclerAdapter.notifyDataSetChanged();
 
-                    }else{
+                    } else {
 
                         noEventsImageView.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     pd.hide();
                     Toast.makeText(getActivity(), "Some Error Occured", Toast.LENGTH_SHORT).show();
                 }
@@ -371,14 +363,14 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onResponse(retrofit2.Call<getNewsApiModel> call, Response<getNewsApiModel> response) {
                 pd.hide();
-                if(response.code()==200) {
-                    if(response.body().getNewsobj().size()!=0){
+                if (response.code() == 200) {
+                    if (response.body().getNewsobj().size() != 0) {
                         noNewsImageView.setVisibility(View.GONE);
                         for (int i = 0; i < response.body().getNewsobj().size(); i++) {
                             News news = new News();
                             try {
                                 mydate = df.parse(response.body().getNewsobj().get(i).getDate());
-                                String month = parseMonth(mydate.getMonth()+1);
+                                String month = parseMonth(mydate.getMonth() + 1);
                                 news.setDate(Integer.toString(mydate.getDate()));
                                 news.setMonth(month);
                                 news.setImageUrl(response.body().getNewsobj().get(i).getImageFirebaseLink());
@@ -394,10 +386,10 @@ public class DashboardFragment extends Fragment {
                             newsList.add(news);
                         }
                         newsRecyclerAdapter.notifyDataSetChanged();
-                    }else{
+                    } else {
                         noNewsImageView.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
                     pd.hide();
                     Toast.makeText(getActivity(), "Some Error Occured", Toast.LENGTH_SHORT).show();
                 }
@@ -412,11 +404,11 @@ public class DashboardFragment extends Fragment {
     }
 
     private void checkAttendanceStatus() {
-        Log.e("dashboardAttendance","inside");
+        Log.e("dashboardAttendance", "inside");
 //        Log.e("dashboard",Boolean.toString(sessionManager.getAttendanceStatus()));
-        if(sessionManager.getAttendanceStatus()){
+        if (sessionManager.getAttendanceStatus()) {
             checkInBtn.setImageResource(R.drawable.ic_check_out);
-        }else{
+        } else {
             checkInBtn.setImageResource(R.drawable.ic_check_in);
         }
     }
@@ -427,51 +419,50 @@ public class DashboardFragment extends Fragment {
         call.enqueue(new Callback<personalEmployeeProfileApiModel>() {
             @Override
             public void onResponse(retrofit2.Call<personalEmployeeProfileApiModel> call, Response<personalEmployeeProfileApiModel> response) {
-                if(response.code()==200){
+                if (response.code() == 200) {
                     Boolean status = response.body().getProfile().get(0).getStatus();
-                    Log.e("dashboardatttendance",Boolean.toString(status));
+                    Log.e("dashboardatttendance", Boolean.toString(status));
                     sessionManager.setATTENDANCE_STATUS(status);
                     sessionManager.setATTENDANCE_ID(response.body().getProfile().get(0).getAttendanceId());
-                    Log.e("atttendance",Integer.toString(response.body().getProfile().get(0).getAttendanceId()));
+                    Log.e("atttendance", Integer.toString(response.body().getProfile().get(0).getAttendanceId()));
                     checkAttendanceStatus();
-                }else{
+                } else {
                     Toast.makeText(getActivity(), "Could not fetch checkIn data", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(retrofit2.Call<personalEmployeeProfileApiModel> call, Throwable t) {
-                Log.e("profile",t.toString());
+                Log.e("profile", t.toString());
             }
         });
     }
 
 
-
     private String parseMonth(int month) {
-        if(month==1){
+        if (month == 1) {
             return "JAN";
-        }else if(month==2){
+        } else if (month == 2) {
             return "FEB";
-        }else if(month==3){
+        } else if (month == 3) {
             return "MAR";
-        }else if(month==4){
+        } else if (month == 4) {
             return "APR";
-        }else if(month==5){
+        } else if (month == 5) {
             return "MAY";
-        }else if(month==6){
+        } else if (month == 6) {
             return "JUN";
-        }else if(month==7){
+        } else if (month == 7) {
             return "JUL";
-        }else if (month==8){
+        } else if (month == 8) {
             return "AUG";
-        }else if(month==9){
+        } else if (month == 9) {
             return "SEP";
-        }else if(month==10){
+        } else if (month == 10) {
             return "OCT";
-        }else if(month==11){
+        } else if (month == 11) {
             return "NOV";
-        }else{
+        } else {
             return "DEC";
         }
     }

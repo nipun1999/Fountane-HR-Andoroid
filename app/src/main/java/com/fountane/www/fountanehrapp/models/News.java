@@ -2,9 +2,10 @@ package com.fountane.www.fountanehrapp.models;
 
 public class News {
 
-    private String title,date,publishedby,time,imageUrl,month;
+    private String id, title, date, publishedby, time, imageUrl, month;
 
-    public News(String title, String date, String publishedby, String time,String imageUrl,String month) {
+    public News(String newsId, String title, String date, String publishedby, String time, String imageUrl, String month) {
+        this.id = newsId;
         this.title = title;
         this.date = date;
         this.publishedby = publishedby;
@@ -13,7 +14,7 @@ public class News {
         this.month = month;
     }
 
-    public News(){
+    public News() {
 
     }
 
@@ -64,5 +65,13 @@ public class News {
 
     public void setMonth(String month) {
         this.month = month;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

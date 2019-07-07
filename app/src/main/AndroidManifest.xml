@@ -20,6 +20,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".Activities.NewsActivity"></activity>
         <activity android:name=".Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,7 +57,7 @@
         <activity android:name=".Activities.SignInActivity" />
         <activity android:name=".Activities.WalkthroughActivity" />
         <activity android:name=".Activities.HierarchyTabbedActivity" />
-        <activity android:name=".Activities.employeeDetailActivity"></activity>
+        <activity android:name=".Activities.employeeDetailActivity" />
     </application>
 
 </manifest>
