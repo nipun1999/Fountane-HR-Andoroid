@@ -1,4 +1,5 @@
 package com.fountane.www.fountanehrapp.Activities;
+
 import android.app.ProgressDialog;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
@@ -31,7 +32,9 @@ import android.widget.Toast;
 
 import com.fountane.www.fountanehrapp.ApiModels.personalEmployeeProfileApiModel;
 import com.fountane.www.fountanehrapp.Fragments.AttendanceFragment;
+import com.fountane.www.fountanehrapp.Fragments.CalenderFragment;
 import com.fountane.www.fountanehrapp.Fragments.DashboardFragment;
+import com.fountane.www.fountanehrapp.Fragments.FountaneFragment;
 import com.fountane.www.fountanehrapp.Fragments.UserProfileFragment;
 import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
@@ -62,16 +65,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.nav0:
-                    transaction.replace(R.id.content,new DashboardFragment()).addToBackStack("tag").commit();
+                    transaction.replace(R.id.content, new DashboardFragment()).addToBackStack("tag").commit();
                     return true;
                 case R.id.nav1:
-                    Toast.makeText(MainActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                    transaction.replace(R.id.content, new CalenderFragment()).addToBackStack("tag").commit();
                     return true;
                 case R.id.nav2:
-                    transaction.replace(R.id.content,new AttendanceFragment()).addToBackStack("tag").commit();
+                    transaction.replace(R.id.content, new AttendanceFragment()).addToBackStack("tag").commit();
                     return true;
                 case R.id.nav3:
-                    Toast.makeText(MainActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                    transaction.replace(R.id.content, new FountaneFragment()).addToBackStack("tag").commit();
                     return true;
             }
             return false;
@@ -88,18 +91,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         sessionManager = new SessionManager(this);
 
 
-
         FirebaseMessaging.getInstance().subscribeToTopic("News");
         FirebaseMessaging.getInstance().subscribeToTopic("Events");
 
 
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.content,new DashboardFragment()).commit();
-
-
-
+        transaction.replace(R.id.content, new DashboardFragment()).commit();
 
 
 //        loadFragment(new DashboardFragment());
@@ -140,16 +138,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         nameNavTxt = headerView.findViewById(R.id.nameNavTxtView);
 
-        if(sessionManager.getEMPLOYEE_NAME()!=null) {
+        if (sessionManager.getEMPLOYEE_NAME() != null) {
             nameNavTxt.setText(sessionManager.getEMPLOYEE_NAME());
         }
-
-
-
-
-
-
-
 
 
     }
@@ -212,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.content,new UserProfileFragment()).addToBackStack("tag").commit();
+            transaction.replace(R.id.content, new UserProfileFragment()).addToBackStack("tag").commit();
 
         } else if (id == R.id.settings) {
 
@@ -234,22 +225,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
     private void signOut() {
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         sessionManager.logoutUser();
-                        Intent signIn = new Intent(MainActivity.this,SignInActivity.class);
+                        Intent signIn = new Intent(MainActivity.this, SignInActivity.class);
                         startActivity(signIn);
                     }
                 });
     }
 
-
-
-    
 
 }
 

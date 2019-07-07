@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fountane.www.fountanehrapp.Activities.HierarchyTabbedActivity;
+import com.fountane.www.fountanehrapp.Adapters.EventsRecyclerAdapter;
 import com.fountane.www.fountanehrapp.Adapters.newsRecyclerAdapter;
 import com.fountane.www.fountanehrapp.ApiModels.CreateAttendanceApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.getEventsApiModel;
@@ -57,9 +59,10 @@ import retrofit2.Response;
  */
 public class DashboardFragment extends Fragment {
 
-    private RelativeLayout grievancesBtn, leavesBtn, payslipsBtn, documentsBtn;
+    private CardView grievancesBtn, leavesBtn, payslipsBtn, documentsBtn;
     private RecyclerView newsRecycler, eventsRecycler;
-    private newsRecyclerAdapter newsRecyclerAdapter, eventsRecyclerAdapter;
+    private newsRecyclerAdapter newsRecyclerAdapter;
+    private EventsRecyclerAdapter eventsRecyclerAdapter;
     private TextView newsViewAll;
     private List<News> newsList = new ArrayList<>();
     private List<News> eventsList = new ArrayList<>();
@@ -147,10 +150,10 @@ public class DashboardFragment extends Fragment {
 
 
         newsRecyclerAdapter = new newsRecyclerAdapter(newsList, getActivity());
-        eventsRecyclerAdapter = new newsRecyclerAdapter(eventsList, getActivity());
+        eventsRecyclerAdapter = new EventsRecyclerAdapter(eventsList, getActivity());
 
         RecyclerView.LayoutManager newsLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView.LayoutManager eventsLayoutmanager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView.LayoutManager eventsLayoutmanager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
 
         newsRecycler.setLayoutManager(newsLayoutManager);
         newsRecycler.setItemAnimator(new DefaultItemAnimator());

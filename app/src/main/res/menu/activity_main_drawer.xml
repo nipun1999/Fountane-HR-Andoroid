@@ -3,39 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="">
-        <menu>
-            <item
-                android:id="@+id/profile"
-                android:title="PROFILE" />
-            <item
-                android:id="@+id/settings"
-                android:title="SETTINGS" />
-        </menu>
-    </item>
-    <item android:title="">
-        <menu>
-            <item
-                android:id="@+id/about"
-                android:title="ABOUT" />
-            <item
-                android:id="@+id/help_support"
-                android:title="HELP &amp; SUPPORT" />
-            <item
-                android:id="@+id/privacy_policy"
-                android:title="PRIVACY POLICY" />
-            <item
-                android:id="@+id/terms_of_service"
-                android:title="TERMS OF SERVICE" />
+    <group
+        android:id="@+id/grp1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/profile"
+            android:title="Profile" />
+        <item
+            android:id="@+id/settings"
+            android:title="Settings" />
+    </group>
 
-        </menu>
-    </item>
-    <item android:title="">
-        <menu>
-            <item
-                android:id="@+id/logout"
-                android:title="LOGOUT" />
-        </menu>
-    </item>
+    <group
+        android:id="@+id/grp2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/about"
+            android:title="About" />
+        <item
+            android:id="@+id/help_support"
+            android:title="Help &amp; Support" />
+        <item
+            android:id="@+id/privacy_policy"
+            android:title="Privacy Policy" />
+        <item
+            android:id="@+id/terms_of_service"
+            android:title="Terms Of Service" />
+    </group>
+
+    <group
+        android:id="@+id/grp3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/logout"
+            android:title="Logout" />
+    </group>
+
 
 </menu>
