@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabBackground="@color/colorPrimaryDark"
-        app:tabIndicatorColor="#ffffff"
-        app:tabTextColor="#ffffff" />
+        app:tabIndicatorColor="#FF0887FF"
+        app:tabTextColor="#000" />
 
     <FrameLayout
         android:id="@+id/simpleFrameLayout"

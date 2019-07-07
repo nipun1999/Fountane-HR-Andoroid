@@ -41,6 +41,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class AttendanceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_attendance, container, false);
 
         attendanceRecycler = view.findViewById(R.id.attendanceRecyclerView);
-        attendanceRecyclerAdapter = new attendanceRecyclerAdapter(attendanceList);
+        attendanceRecyclerAdapter = new attendanceRecyclerAdapter(attendanceList, getContext());
         sessionManager = new SessionManager(getActivity());
         RecyclerView.LayoutManager leavesLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         attendanceRecycler.setLayoutManager(leavesLayoutManager);
@@ -96,11 +97,9 @@ public class AttendanceFragment extends Fragment {
         pd.setCancelable(false);
 
 
-
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
-
 
 
         attendanceCalendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
@@ -108,15 +107,14 @@ public class AttendanceFragment extends Fragment {
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
                 Integer month = date.getMonth() + 1;
                 Integer year = date.getYear();
-                getMonthlyAttendance(month,year);
+                getMonthlyAttendance(month, year);
             }
         });
         prepareAttendanceData();
 
-        String temp = String.format("%02d",month+1);
+        String temp = String.format("%02d", month + 1);
 
-        getMonthlyAttendance(Integer.parseInt(temp),year);
-
+        getMonthlyAttendance(Integer.parseInt(temp), year);
 
 
         return view;
@@ -125,31 +123,31 @@ public class AttendanceFragment extends Fragment {
     private void getMonthlyAttendance(final Integer month, final Integer year) {
 
 
-        Call<getMonthlyAttendanceApiModel> call = ApiClient.getClient().getMonthlyAttendance(sessionManager.getEMP_Code(),Integer.toString(month),Integer.toString(year));
+        Call<getMonthlyAttendanceApiModel> call = ApiClient.getClient().getMonthlyAttendance(sessionManager.getEMP_Code(), Integer.toString(month), Integer.toString(year));
         call.enqueue(new Callback<getMonthlyAttendanceApiModel>() {
             @Override
             public void onResponse(Call<getMonthlyAttendanceApiModel> call, Response<getMonthlyAttendanceApiModel> response) {
 
-                if(response.code()==200){
-                    for(int i=0;i<response.body().getAttendanceobj().size();i++){
+                if (response.code() == 200) {
+                    for (int i = 0; i < response.body().getAttendanceobj().size(); i++) {
                         Calendar calendar = Calendar.getInstance();
                         Integer date = response.body().getAttendanceobj().get(i).getDate();
                         String type = response.body().getAttendanceobj().get(i).getType();
-                        if(type.equals("present")){
-                            calendar.set(year,month-1,date);
+                        if (type.equals("present")) {
+                            calendar.set(year, month - 1, date);
                             CalendarDay calendarDay = CalendarDay.from(calendar);
                             presentList.add(calendarDay);
-                        }else if(type.contains("Leave")){
-                            calendar.set(year,month-1,date);
+                        } else if (type.contains("Leave")) {
+                            calendar.set(year, month - 1, date);
                             CalendarDay calendarDay = CalendarDay.from(calendar);
                             leaveList.add(calendarDay);
                         }
 
                     }
-                    attendanceCalendarView.addDecorator(new dateDecorator(Color.RED,leaveList));
-                    attendanceCalendarView.addDecorators(new dateDecorator(Color.GREEN,presentList));
+                    attendanceCalendarView.addDecorator(new dateDecorator(Color.RED, leaveList));
+                    attendanceCalendarView.addDecorators(new dateDecorator(Color.GREEN, presentList));
 
-                }else{
+                } else {
                     Toast.makeText(getActivity(), "Failed to fetch previous data", Toast.LENGTH_SHORT).show();
                 }
 
@@ -172,59 +170,64 @@ public class AttendanceFragment extends Fragment {
             @Override
             public void onResponse(Call<getAttendanceApiModel> call, Response<getAttendanceApiModel> response) {
                 pd.dismiss();
-                if(response.code()==200){
+                if (response.code() == 200) {
 
-                    if(response.body().getAttendanceobj().size()!=0){
+                    if (response.body().getAttendanceobj().size() != 0) {
 //                        Log.e("attendanceSize",Integer.toString(response.body().getAttendanceobj().size()));
-                        for(int i=0;i<response.body().getAttendanceobj().size();i++){
+                        for (int i = 0; i < response.body().getAttendanceobj().size(); i++) {
                             Attendance attendance = new Attendance();
 //                            Log.e("attendance",Integer.toString(response.body().getAttendanceobj().get(i).getAttendanceId()));
 
                             try {
                                 mydate = df.parse(response.body().getAttendanceobj().get(i).getCheckIn());
-                                String month = parseMonth(mydate.getMonth()+1);
+                                String month = parseMonth(mydate.getMonth() + 1);
                                 attendance.setDate(Integer.toString(mydate.getDate()));
-                                Log.e("grievanced",Integer.toString(mydate.getDate()));
-                                Log.e("grievancet",Long.toString(mydate.getTime()));
-                                Log.e("grievancem",Integer.toString(mydate.getMonth()));
+                                Log.e("grievanced", Integer.toString(mydate.getDate()));
+                                Log.e("grievancet", Long.toString(mydate.getTime()));
+                                Log.e("grievancem", Integer.toString(mydate.getMonth()));
                                 attendance.setMonth(month);
-                                attendance.setCheckIn("Check In: " + Integer.toString(mydate.getHours())+":"+Integer.toString(mydate.getMinutes()));
+
+                                attendance.setCheckIn("Check In: " + Integer.toString(mydate.getHours()) + ":" + Integer.toString(mydate.getMinutes()));
                             } catch (ParseException e) {
                                 attendance.setDate("00");
-                                attendance.setCheckIn("Check In: "+ "00");
+                                attendance.setCheckIn("Check In: " + "00");
                                 attendance.setMonth("00");
                                 e.printStackTrace();
                             }
 
-                            if(response.body().getAttendanceobj().get(i).getCheckOut()!=null){
+                            if (response.body().getAttendanceobj().get(i).getCheckOut() != null) {
                                 try {
                                     mydate = df.parse(response.body().getAttendanceobj().get(i).getCheckOut());
-                                    String month = parseMonth(mydate.getMonth()+1);
+                                    String month = parseMonth(mydate.getMonth() + 1);
 //                                    attendance.setDate(Integer.toString(mydate.getDate()));
 //                                    Log.e("grievanced",Integer.toString(mydate.getDate()));
 //                                    Log.e("grievancet",Long.toString(mydate.getTime()));
 //                                    Log.e("grievancem",Integer.toString(mydate.getMonth()));
 //                                    attendance.setMonth(month);
-                                    attendance.setCheckOut("Check Out: " + Integer.toString(mydate.getHours())+":"+Integer.toString(mydate.getMinutes()));
+                                    attendance.setCheckOut("Check Out: " + Integer.toString(mydate.getHours()) + ":" + Integer.toString(mydate.getMinutes()));
                                 } catch (ParseException e) {
                                     attendance.setDate("00");
-                                    attendance.setCheckIn("Check In: "+ "00");
+                                    attendance.setCheckIn("Check In: " + "00");
                                     attendance.setMonth("00");
                                     e.printStackTrace();
                                 }
-                            }else{
+                            } else {
                                 attendance.setCheckOut("Check Out: ");
                             }
+                            if (response.body().getAttendanceobj().get(i).getComments() != null) {
+                                attendance.setComment(String.valueOf(response.body().getAttendanceobj().get(i).getComments()));
+                            }
 
+                            attendance.setAttendanceId(String.valueOf(response.body().getAttendanceobj().get(i).getAttendanceId()));
                             attendanceList.add(attendance);
 //                            attendanceList.sort();
                         }
-
+                        Collections.reverse(attendanceList);
                         attendanceRecyclerAdapter.notifyDataSetChanged();
-                    }else{
+                    } else {
                         imageView.setVisibility(View.VISIBLE);
                     }
-                }else{
+                } else {
 
                     Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
 //                    Log.e("attendance",Integer.toString(response.code()));
@@ -259,29 +262,29 @@ public class AttendanceFragment extends Fragment {
     }
 
     private String parseMonth(int month) {
-        if(month==1){
+        if (month == 1) {
             return "JAN";
-        }else if(month==2){
+        } else if (month == 2) {
             return "FEB";
-        }else if(month==3){
+        } else if (month == 3) {
             return "MAR";
-        }else if(month==4){
+        } else if (month == 4) {
             return "APR";
-        }else if(month==5){
+        } else if (month == 5) {
             return "MAY";
-        }else if(month==6){
+        } else if (month == 6) {
             return "JUN";
-        }else if(month==7){
+        } else if (month == 7) {
             return "JUL";
-        }else if (month==8){
+        } else if (month == 8) {
             return "AUG";
-        }else if(month==9){
+        } else if (month == 9) {
             return "SEP";
-        }else if(month==10){
+        } else if (month == 10) {
             return "OCT";
-        }else if(month==11){
+        } else if (month == 11) {
             return "NOV";
-        }else{
+        } else {
             return "DEC";
         }
     }

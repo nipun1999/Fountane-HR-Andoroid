@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fountane.www.fountanehrapp.Activities.EventsActivity;
 import com.fountane.www.fountanehrapp.Activities.HierarchyTabbedActivity;
 import com.fountane.www.fountanehrapp.Adapters.EventsRecyclerAdapter;
 import com.fountane.www.fountanehrapp.Adapters.newsRecyclerAdapter;
@@ -31,6 +32,7 @@ import com.fountane.www.fountanehrapp.ApiModels.personalEmployeeProfileApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.updateAttendanceApiModel;
 import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
+import com.fountane.www.fountanehrapp.Utils.AppConstants;
 import com.fountane.www.fountanehrapp.Utils.SessionManager;
 import com.fountane.www.fountanehrapp.models.News;
 import com.google.firebase.database.DataSnapshot;
@@ -63,7 +65,7 @@ public class DashboardFragment extends Fragment {
     private RecyclerView newsRecycler, eventsRecycler;
     private newsRecyclerAdapter newsRecyclerAdapter;
     private EventsRecyclerAdapter eventsRecyclerAdapter;
-    private TextView newsViewAll;
+    private TextView newsViewAll, eventsViewAll;
     private List<News> newsList = new ArrayList<>();
     private List<News> eventsList = new ArrayList<>();
     private ImageView checkInBtn;
@@ -99,6 +101,7 @@ public class DashboardFragment extends Fragment {
         newsViewAll = view.findViewById(R.id.newsViewAll);
         noNewsImageView = view.findViewById(R.id.noNewsImageView);
         noEventsImageView = view.findViewById(R.id.noEventImageView);
+        eventsViewAll = view.findViewById(R.id.eventsViewAll);
 
         sessionManager = new SessionManager(getActivity());
 
@@ -173,6 +176,14 @@ public class DashboardFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.content, new NewsFragment()).addToBackStack("tag").commit();
+            }
+        });
+
+        eventsViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), EventsActivity.class);
+                startActivity(i);
             }
         });
 
@@ -308,6 +319,7 @@ public class DashboardFragment extends Fragment {
         final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         pd.show();
         eventsList.clear();
+        AppConstants.EVENTS.clear();
         retrofit2.Call<getEventsApiModel> call = ApiClient.getClient().getEvents();
         call.enqueue(new Callback<getEventsApiModel>() {
             @Override
@@ -333,7 +345,9 @@ public class DashboardFragment extends Fragment {
                                 e.printStackTrace();
                             }
                             news.setTitle(response.body().getEvents().get(i).getName());
+                            news.setData(response.body().getEvents().get(i).getEventVenue());
                             news.setPublishedby(response.body().getEvents().get(i).getEventVenue());
+                            AppConstants.EVENTS.add(news);
                             eventsList.add(news);
                         }
                         eventsRecyclerAdapter.notifyDataSetChanged();
@@ -384,6 +398,7 @@ public class DashboardFragment extends Fragment {
                                 news.setMonth("00");
                                 e.printStackTrace();
                             }
+                            news.setData(response.body().getNewsobj().get(i).getText());
                             news.setTitle(response.body().getNewsobj().get(i).getTitle());
                             news.setPublishedby(response.body().getNewsobj().get(i).getVenue());
                             newsList.add(news);

@@ -14,9 +14,10 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:gravity="center_vertical"
+        android:title="Events"
         app:layout_collapseMode="pin"
         app:theme="@style/MyToolbarTheme"
-        app:title="@string/app_name" />
+        app:titleTextColor="#000" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
@@ -25,7 +26,7 @@
         android:minHeight="?actionBarSize"
         app:tabBackground="@color/colorPrimary"
         app:tabGravity="fill"
-        app:tabIndicatorColor="#fff"
+        app:tabIndicatorColor="#FF0887FF"
         app:tabIndicatorHeight="4dp"
         app:tabMode="fixed" />
 

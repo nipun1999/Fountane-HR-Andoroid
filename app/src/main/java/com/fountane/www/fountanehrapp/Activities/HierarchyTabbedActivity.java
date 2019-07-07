@@ -41,11 +41,9 @@ public class HierarchyTabbedActivity extends AppCompatActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.simpleFrameLayout,consultancyFragment);
+        ft.replace(R.id.simpleFrameLayout, consultancyFragment);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.commit();
-
-
 
 
 // perform setOnTabSelectedListener event on TabLayout

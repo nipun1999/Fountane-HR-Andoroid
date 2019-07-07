@@ -1,6 +1,8 @@
 package com.fountane.www.fountanehrapp.Retrofit;
 
+import com.fountane.www.fountanehrapp.ApiModels.AddCommentAttendance;
 import com.fountane.www.fountanehrapp.ApiModels.CreateAttendanceApiModel;
+import com.fountane.www.fountanehrapp.ApiModels.EmployeeDetails;
 import com.fountane.www.fountanehrapp.ApiModels.createLeaveApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.getAttendanceApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.getEventsApiModel;
@@ -72,5 +74,10 @@ public interface ApiInterface {
     @GET("api/v1/get/departmentWise")
     Call<getPeopleDepartmentWise> getPeople(@Query("role_responsibility")String responsibility,@Query("department")String department);
 
+    @GET("api/v1/get/employeeProfile")
+    Call<EmployeeDetails> getAllEmployees();
+
+    @POST("api/v1/addComment/attendance")
+    Call<AddCommentAttendance> addComment(@Body Map<String,String> body);
 
 }

@@ -4,6 +4,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+
 
 import com.fountane.www.fountanehrapp.Adapters.EventsTabAdapter;
 import com.fountane.www.fountanehrapp.Fragments.OlderEventsTab;
@@ -22,8 +24,13 @@ public class EventsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("Events");
+
 
         adapter = new EventsTabAdapter(getSupportFragmentManager());
         adapter.addFragment(new OnGoingEventsTab(), "ONGOING");
@@ -31,5 +38,6 @@ public class EventsActivity extends AppCompatActivity {
         adapter.addFragment(new OlderEventsTab(), "OLDER");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 }

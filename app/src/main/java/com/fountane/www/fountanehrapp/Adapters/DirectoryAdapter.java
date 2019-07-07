@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,69 +23,64 @@ import com.bumptech.glide.request.RequestOptions;
 import com.fountane.www.fountanehrapp.Activities.EventsActivity;
 import com.fountane.www.fountanehrapp.Activities.NewsActivity;
 import com.fountane.www.fountanehrapp.R;
+import com.fountane.www.fountanehrapp.models.DirectoryList;
 import com.fountane.www.fountanehrapp.models.News;
 import com.google.common.net.InternetDomainName;
 
 import java.util.List;
 
-public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAdapter.MyViewHolder> {
-    private List<News> newsList;
+public class DirectoryAdapter extends RecyclerView.Adapter<DirectoryAdapter.MyViewHolder> {
+    private List<DirectoryList> directoryLists;
     private View itemView;
     public Context mcontext;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, date;
+        public TextView name, position;
         public ImageView imageView;
-        public RelativeLayout main_event;
+        public RelativeLayout relative;
 
 
         public MyViewHolder(View view) {
             super(view);
-            title = view.findViewById(R.id.event_title);
-            date = view.findViewById(R.id.event_date);
-            imageView = view.findViewById(R.id.event_img);
-            main_event = view.findViewById(R.id.event);
+            name = view.findViewById(R.id.name);
+            position = view.findViewById(R.id.position);
+            imageView = view.findViewById(R.id.img);
+            relative = view.findViewById(R.id.relative);
         }
     }
 
-    public EventsRecyclerAdapter(List<News> eventList, Context context) {
-        this.newsList = eventList;
+    public DirectoryAdapter(List<DirectoryList> directoryLists, Context context) {
+        this.directoryLists = directoryLists;
         this.mcontext = context;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_events, parent, false);
+                .inflate(R.layout.item_directory, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final News news = newsList.get(position);
-        holder.title.setText(news.getTitle());
-        holder.date.setText(news.getDate());
+        final DirectoryList directoryList = directoryLists.get(position);
+        holder.name.setText(directoryList.getName());
+        holder.position.setText(directoryList.getPosition());
 
-        RequestOptions requestOptions = new RequestOptions()
-                .placeholder(R.drawable.loading)
-                .error(R.drawable.placeholder_1)
-                .fitCenter()
-                .override(250, 161);
         Glide.with(itemView.getContext())
-                .applyDefaultRequestOptions(requestOptions)
-                .load(news.getImageUrl())
+                .load(directoryList.getImg())
                 .into(holder.imageView);
 
-        holder.main_event.setOnClickListener(new View.OnClickListener() {
+        holder.relative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mcontext, NewsActivity.class);
-                i.putExtra("newsId", news.getId());
-                i.putExtra("Headline", news.getTitle());
-                i.putExtra("Data", news.getData());
-                i.putExtra("Img", news.getImageUrl());
-                i.putExtra("from","Events");
-                mcontext.startActivity(i);
+//                Intent i = new Intent(mcontext, .class);
+//                i.putExtra("newsId", news.getId());
+//                i.putExtra("Headline", news.getTitle());
+//                i.putExtra("Data", news.getData());
+//                i.putExtra("Img", news.getImageUrl());
+//                i.putExtra("from", "Events");
+//                mcontext.startActivity(i);
             }
         });
 
@@ -92,7 +88,7 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
 
     @Override
     public int getItemCount() {
-        return newsList.size();
+        return directoryLists.size();
     }
 
 }

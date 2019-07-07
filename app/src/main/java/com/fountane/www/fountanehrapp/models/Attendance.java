@@ -2,17 +2,41 @@ package com.fountane.www.fountanehrapp.models;
 
 public class Attendance {
 
-    String date,month,checkIn,checkOut;
+    String date;
+    String month;
+    String checkIn;
+    String checkOut;
+    String comment;
 
-    public Attendance(){
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getAttendanceId() {
+        return attendanceId;
+    }
+
+    public void setAttendanceId(String attendanceId) {
+        this.attendanceId = attendanceId;
+    }
+
+    String attendanceId;
+
+    public Attendance() {
 
     }
 
-    public Attendance(String date, String month, String checkIn, String checkOut) {
+    public Attendance(String date, String month, String checkIn, String checkOut, String attendanceId, String comment) {
         this.date = date;
         this.month = month;
+        this.comment = comment;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.attendanceId = attendanceId;
     }
 
     public String getDate() {
