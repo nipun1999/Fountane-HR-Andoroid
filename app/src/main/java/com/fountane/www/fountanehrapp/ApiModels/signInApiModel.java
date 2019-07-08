@@ -23,6 +23,7 @@ public class signInApiModel {
     @Expose
     private Boolean status;
 
+
     public Boolean getSuccess() {
         return success;
     }
@@ -70,6 +71,8 @@ public class signInApiModel {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+
     public class Auth {
 
         @SerializedName("fountaneEmail")

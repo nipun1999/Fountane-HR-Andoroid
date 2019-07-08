@@ -18,6 +18,7 @@ import com.fountane.www.fountanehrapp.ApiModels.registrationApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.signInApiModel;
 import com.fountane.www.fountanehrapp.ApiModels.updateAttendanceApiModel;
 
+import java.util.Date;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -79,5 +80,9 @@ public interface ApiInterface {
 
     @POST("api/v1/addComment/attendance")
     Call<AddCommentAttendance> addComment(@Body Map<String,String> body);
+
+    @POST("api/v1/get/attendance")
+    Call<getAttendanceApiModel> getAttandanceDate(@Query("empCode") String empCode,@Query("date")Date date);
+
 
 }

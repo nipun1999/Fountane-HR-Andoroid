@@ -22,6 +22,7 @@ import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.fountane.www.fountanehrapp.Activities.EventsActivity;
 import com.fountane.www.fountanehrapp.Activities.NewsActivity;
+import com.fountane.www.fountanehrapp.Activities.employeeDetailActivity;
 import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.models.DirectoryList;
 import com.fountane.www.fountanehrapp.models.News;
@@ -62,7 +63,7 @@ public class DirectoryAdapter extends RecyclerView.Adapter<DirectoryAdapter.MyVi
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         final DirectoryList directoryList = directoryLists.get(position);
         holder.name.setText(directoryList.getName());
         holder.position.setText(directoryList.getPosition());
@@ -71,18 +72,30 @@ public class DirectoryAdapter extends RecyclerView.Adapter<DirectoryAdapter.MyVi
                 .load(directoryList.getImg())
                 .into(holder.imageView);
 
-        holder.relative.setOnClickListener(new View.OnClickListener() {
+
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i = new Intent(mcontext, .class);
-//                i.putExtra("newsId", news.getId());
-//                i.putExtra("Headline", news.getTitle());
-//                i.putExtra("Data", news.getData());
-//                i.putExtra("Img", news.getImageUrl());
-//                i.putExtra("from", "Events");
-//                mcontext.startActivity(i);
+                Intent intent = new Intent(v.getContext(),employeeDetailActivity.class);
+                intent.putExtra("empCode",directoryLists.get(position).getEmpCode());
+                v.getContext().startActivity(intent);
             }
         });
+
+//        holder.relative.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent i = new Intent(mcontext, .class);
+////                i.putExtra("newsId", news.getId());
+////                i.putExtra("Headline", news.getTitle());
+////                i.putExtra("Data", news.getData());
+////                i.putExtra("Img", news.getImageUrl());
+////                i.putExtra("from", "Events");
+////                mcontext.startActivity(i);
+//            }
+//        });
 
     }
 

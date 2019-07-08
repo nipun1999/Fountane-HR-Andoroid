@@ -2,12 +2,13 @@ package com.fountane.www.fountanehrapp.models;
 
 public class DirectoryList {
 
-    private String img, name, position;
+    private String img, name, position,empCode;
 
-    public DirectoryList(String name, String img, String position) {
+    public DirectoryList(String name, String img, String position,String empCode) {
         this.name = name;
         this.img = img;
         this.position = position;
+        this.empCode = empCode;
     }
 
     public DirectoryList() {
@@ -36,5 +37,13 @@ public class DirectoryList {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public String getEmpCode() {
+        return empCode;
+    }
+
+    public void setEmpCode(String empCode) {
+        this.empCode = empCode;
     }
 }

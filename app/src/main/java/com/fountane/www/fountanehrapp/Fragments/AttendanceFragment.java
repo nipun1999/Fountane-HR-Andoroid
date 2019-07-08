@@ -33,6 +33,7 @@ import com.fountane.www.fountanehrapp.models.Leaves;
 import com.google.android.gms.common.api.Api;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.text.DateFormat;
@@ -102,6 +103,20 @@ public class AttendanceFragment extends Fragment {
         int month = c.get(Calendar.MONTH);
 
 
+
+
+        attendanceCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                Integer month = date.getMonth() + 1;
+                Integer year = date.getYear();
+                Integer dte = date.getDay();
+                String formattedDate = year + "-" + month + "-" + dte;
+                prepareAttendanceData();
+            }
+        });
+
+
         attendanceCalendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
@@ -110,15 +125,17 @@ public class AttendanceFragment extends Fragment {
                 getMonthlyAttendance(month, year);
             }
         });
-        prepareAttendanceData();
 
         String temp = String.format("%02d", month + 1);
 
         getMonthlyAttendance(Integer.parseInt(temp), year);
 
+        prepareAttendanceData();
+
 
         return view;
     }
+
 
     private void getMonthlyAttendance(final Integer month, final Integer year) {
 
@@ -230,6 +247,7 @@ public class AttendanceFragment extends Fragment {
                 } else {
 
                     Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                    Log.e("attendance",response.message());
 //                    Log.e("attendance",Integer.toString(response.code()));
 //                    Log.e("attendance",response.message());
                 }

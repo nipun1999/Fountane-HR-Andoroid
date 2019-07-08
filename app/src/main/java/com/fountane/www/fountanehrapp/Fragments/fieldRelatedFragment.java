@@ -3,7 +3,10 @@ package com.fountane.www.fountanehrapp.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.telecom.Call;
 import android.util.Log;
@@ -61,8 +64,12 @@ public class fieldRelatedFragment extends Fragment {
 
         peopleRecyclerAdapter = new peopleFieldsRecyclerAdapter(peopleList,getActivity(),field);
         fieldRecycler.setAdapter(peopleRecyclerAdapter);
-        GridLayoutManager manager = new GridLayoutManager(getContext(), 3, GridLayoutManager.VERTICAL, false);
-        fieldRecycler.setLayoutManager(manager);
+
+        RecyclerView.LayoutManager leavesLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        fieldRecycler.setLayoutManager(leavesLayoutManager);
+        fieldRecycler.setItemAnimator(new DefaultItemAnimator());
+        fieldRecycler.setAdapter(peopleRecyclerAdapter);
+        fieldRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
 
 
         prepareData();

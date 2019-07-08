@@ -211,6 +211,7 @@ public class SignInActivity extends AppCompatActivity {
                     sessionManager.setLogInStatus(true);
                     sessionManager.setEMP_CODE(empCode);
                     sessionManager.setEMPLOYEE_NAME(name);
+                    sessionManager.setEMAIL_ID(response.body().getEmail());
                     getAttendanceStatus();
 
                     if(status){

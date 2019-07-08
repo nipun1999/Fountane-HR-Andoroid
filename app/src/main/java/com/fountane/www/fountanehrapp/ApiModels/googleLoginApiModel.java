@@ -19,6 +19,9 @@ public class googleLoginApiModel {
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("email")
+    @Expose
+    private String email;
 
     public Boolean getSuccess() {
         return success;
@@ -58,5 +61,13 @@ public class googleLoginApiModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

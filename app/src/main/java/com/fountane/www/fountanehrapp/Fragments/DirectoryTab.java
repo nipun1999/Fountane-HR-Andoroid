@@ -1,5 +1,6 @@
 package com.fountane.www.fountanehrapp.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -30,6 +31,7 @@ public class DirectoryTab extends Fragment {
     public RecyclerView recyclerView;
     public DirectoryAdapter directoryAdapter;
     public List<DirectoryList> directoryList = new ArrayList<>();
+    private ProgressDialog pd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,11 +45,17 @@ public class DirectoryTab extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(directoryAdapter);
 
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("loading");
+        pd.setCancelable(false);
 
+
+        pd.show();
         retrofit2.Call<EmployeeDetails> call = ApiClient.getClient().getAllEmployees();
         call.enqueue(new Callback<EmployeeDetails>() {
             @Override
             public void onResponse(retrofit2.Call<EmployeeDetails> call, Response<EmployeeDetails> response) {
+                pd.dismiss();
                 if (response.code() == 200) {
 
                     if (response.body().getProfile().size() != 0) {
@@ -56,6 +64,7 @@ public class DirectoryTab extends Fragment {
                             directoryList1.setName(response.body().getProfile().get(i).getName());
                             directoryList1.setPosition(response.body().getProfile().get(i).getDesignation());
                             directoryList1.setImg(response.body().getProfile().get(i).getProfilePic());
+                            directoryList1.setEmpCode(response.body().getProfile().get(i).getEmpCode());
                             directoryList.add(directoryList1);
                             directoryAdapter.notifyDataSetChanged();
                         }
@@ -81,6 +90,7 @@ public class DirectoryTab extends Fragment {
 
             @Override
             public void onFailure(retrofit2.Call<EmployeeDetails> call, Throwable t) {
+                pd.dismiss();
                 Toast.makeText(getActivity(), "Some error occured", Toast.LENGTH_SHORT).show();
             }
         });

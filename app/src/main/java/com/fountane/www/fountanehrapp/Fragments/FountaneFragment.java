@@ -28,7 +28,6 @@ public class FountaneFragment extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
 
         adapter = new EventsTabAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFragment(new OrgChartTab(), "ORG CHART");
         adapter.addFragment(new DirectoryTab(), "Directory");
 
         viewPager.setAdapter(adapter);
