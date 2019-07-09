@@ -20,6 +20,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".Activities.DirectorySearchActivity"></activity>
         <activity android:name=".Activities.EventsActivity" />
         <activity android:name=".Activities.NewsActivity" />
         <activity android:name=".Activities.SplashActivity">

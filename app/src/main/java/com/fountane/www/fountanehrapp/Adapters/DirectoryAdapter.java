@@ -73,13 +73,11 @@ public class DirectoryAdapter extends RecyclerView.Adapter<DirectoryAdapter.MyVi
                 .into(holder.imageView);
 
 
-
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),employeeDetailActivity.class);
-                intent.putExtra("empCode",directoryLists.get(position).getEmpCode());
+                Intent intent = new Intent(v.getContext(), employeeDetailActivity.class);
+                intent.putExtra("empCode", directoryLists.get(position).getEmpCode());
                 v.getContext().startActivity(intent);
             }
         });
@@ -102,6 +100,11 @@ public class DirectoryAdapter extends RecyclerView.Adapter<DirectoryAdapter.MyVi
     @Override
     public int getItemCount() {
         return directoryLists.size();
+    }
+
+    public void updateList(List<DirectoryList> list) {
+        directoryLists = list;
+        notifyDataSetChanged();
     }
 
 }

@@ -38,7 +38,7 @@ public class EmployeeDetails {
         @Expose
         private String empCode;
 
-        private String profilePic, designation;
+        private String profilePic, designation, role_responsibility;
 
         public String getName() {
             return name;
@@ -70,6 +70,14 @@ public class EmployeeDetails {
 
         public void setDesignation(String designation) {
             this.designation = designation;
+        }
+
+        public String getRole_responsibility() {
+            return role_responsibility;
+        }
+
+        public void setRole_responsibility(String role_responsibility) {
+            this.role_responsibility = role_responsibility;
         }
     }
 }
