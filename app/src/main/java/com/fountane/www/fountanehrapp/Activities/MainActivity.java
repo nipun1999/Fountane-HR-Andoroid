@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
@@ -38,6 +39,7 @@ import com.fountane.www.fountanehrapp.Fragments.FountaneFragment;
 import com.fountane.www.fountanehrapp.Fragments.UserProfileFragment;
 import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
+import com.fountane.www.fountanehrapp.Utils.AppConstants;
 import com.fountane.www.fountanehrapp.Utils.SessionManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -65,15 +67,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.nav0:
+                    AppConstants.enableSearch = false;
                     transaction.replace(R.id.content, new DashboardFragment()).addToBackStack("tag").commit();
                     return true;
                 case R.id.nav1:
+                    AppConstants.enableSearch = false;
                     transaction.replace(R.id.content, new CalenderFragment()).addToBackStack("tag").commit();
                     return true;
                 case R.id.nav2:
+                    AppConstants.enableSearch = false;
                     transaction.replace(R.id.content, new AttendanceFragment()).addToBackStack("tag").commit();
                     return true;
                 case R.id.nav3:
+                    AppConstants.enableSearch = true;
                     transaction.replace(R.id.content, new FountaneFragment()).addToBackStack("tag").commit();
                     return true;
             }
@@ -90,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         sessionManager = new SessionManager(this);
 
-
+        Menu menu = findViewById(R.menu.main);
         FirebaseMessaging.getInstance().subscribeToTopic("News");
         FirebaseMessaging.getInstance().subscribeToTopic("Events");
 
@@ -142,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             nameNavTxt.setText(sessionManager.getEMPLOYEE_NAME());
         }
 
-
     }
 
 
@@ -184,12 +189,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_search) {
-            return true;
-        } else if (id == R.id.action_notifications) {
+            item.setVisible(false);
+        }
+
+        if (id == R.id.action_search && AppConstants.enableSearch) {
+//            item.setVisible(true);
+            Intent i = new Intent(MainActivity.this, DirectorySearchActivity.class);
+            startActivity(i);
             return true;
         }
+//        } else if (id == R.id.action_notifications) {
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 

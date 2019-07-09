@@ -15,6 +15,7 @@ import com.fountane.www.fountanehrapp.Adapters.DirectoryAdapter;
 import com.fountane.www.fountanehrapp.ApiModels.EmployeeDetails;
 import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
+import com.fountane.www.fountanehrapp.Utils.AppConstants;
 import com.fountane.www.fountanehrapp.models.DirectoryList;
 import com.fountane.www.fountanehrapp.models.peopleField;
 
@@ -49,7 +50,8 @@ public class DirectoryTab extends Fragment {
         pd.setMessage("loading");
         pd.setCancelable(false);
 
-
+        directoryList.clear();
+        AppConstants.DIRECTORY.clear();
         pd.show();
         retrofit2.Call<EmployeeDetails> call = ApiClient.getClient().getAllEmployees();
         call.enqueue(new Callback<EmployeeDetails>() {
@@ -65,7 +67,10 @@ public class DirectoryTab extends Fragment {
                             directoryList1.setPosition(response.body().getProfile().get(i).getDesignation());
                             directoryList1.setImg(response.body().getProfile().get(i).getProfilePic());
                             directoryList1.setEmpCode(response.body().getProfile().get(i).getEmpCode());
-                            directoryList.add(directoryList1);
+                            if (response.body().getProfile().get(i).getRole_responsibility().equals("Consultancy")) {
+                                directoryList.add(directoryList1);
+                                AppConstants.DIRECTORY.add(directoryList1);
+                            }
                             directoryAdapter.notifyDataSetChanged();
                         }
                         Collections.sort(directoryList, new Comparator<DirectoryList>() {
