@@ -263,7 +263,7 @@ public class AttendanceFragment extends Fragment {
 //        attendanceList.add(attendance1);
 //
 //        Attendance attendance2 = new Attendance("25","Jan","Check In- 09:45 Am","Check Out - 09:00 Pm");
-//        attendanceList.add(attendance2);
+//        attendanceList.add(attendance
 //
 //        Attendance attendance3 = new Attendance("25","Jan","Check In- 09:45 Am","Check Out - 09:00 Pm");
 //        attendanceList.add(attendance3);
