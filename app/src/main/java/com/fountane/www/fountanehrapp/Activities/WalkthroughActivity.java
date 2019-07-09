@@ -75,6 +75,7 @@ public class WalkthroughActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent dashbaord = new Intent(WalkthroughActivity.this,MainActivity.class);
+                finish();
                 startActivity(dashbaord);
             }
         });

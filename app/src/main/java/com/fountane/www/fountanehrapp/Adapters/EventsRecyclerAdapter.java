@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,15 +34,16 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
     public Context mcontext;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, date;
+        public TextView title, date,month,year;
         public ImageView imageView;
-        public RelativeLayout main_event;
+        public LinearLayout main_event;
 
 
         public MyViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.event_title);
-            date = view.findViewById(R.id.event_date);
+            date = view.findViewById(R.id.date_title);
+            month = view.findViewById(R.id.month_title);
             imageView = view.findViewById(R.id.event_img);
             main_event = view.findViewById(R.id.event);
         }
@@ -64,6 +66,7 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
         final News news = newsList.get(position);
         holder.title.setText(news.getTitle());
         holder.date.setText(news.getDate());
+        holder.month.setText(news.getMonth());
 
         RequestOptions requestOptions = new RequestOptions()
                 .placeholder(R.drawable.loading)

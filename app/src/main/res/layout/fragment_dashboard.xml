@@ -25,14 +25,16 @@
 
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="23dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/adminLayout"
+                        android:visibility="gone"
+                        android:layout_marginLeft="19dp"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         app:cardBackgroundColor="#F5B1F5"
@@ -58,7 +60,7 @@
                         android:id="@+id/grievancesLayout"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:layout_marginLeft="14dp"
+                        android:layout_marginLeft="20dp"
                         app:cardBackgroundColor="#FFACB3E8"
                         app:cardCornerRadius="36dp">
 
@@ -81,7 +83,7 @@
                         android:id="@+id/leavesLayout"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:layout_marginLeft="14dp"
+                        android:layout_marginLeft="25dp"
                         app:cardBackgroundColor="#FFA7E4A9"
                         app:cardCornerRadius="36dp">
 
@@ -104,7 +106,7 @@
                         android:id="@+id/payslipsLayout"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:layout_marginLeft="14dp"
+                        android:layout_marginLeft="25dp"
                         app:cardBackgroundColor="#FFF0F1FA"
                         app:cardCornerRadius="36dp">
 
@@ -123,6 +125,33 @@
 
                     </android.support.v7.widget.CardView>
 
+
+                    <android.support.v7.widget.CardView
+                        android:visibility="visible"
+                        android:id="@+id/addLayout"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:cardBackgroundColor="#F5B1F5"
+                        android:layout_marginLeft="25dp"
+                        app:cardCornerRadius="36dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/imageView1"
+                                android:layout_width="24dp"
+                                android:layout_height="23dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/ic_add" />
+                        </RelativeLayout>
+
+                    </android.support.v7.widget.CardView>
+
+
+
                 </LinearLayout>
 
             </HorizontalScrollView>
@@ -140,7 +169,7 @@
                     android:text="News"
                     android:textColor="#37394c"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/opensans_bold"/>
 
                 <TextView
                     android:id="@+id/newsViewAll"
@@ -174,6 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:orientation="horizontal"
                 android:paddingLeft="12dp"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"></android.support.v7.widget.RecyclerView>
@@ -191,7 +221,7 @@
                     android:text="Events"
                     android:textColor="#37394c"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="@font/opensans_bold"/>
 
                 <TextView
                     android:id="@+id/eventsViewAll"
@@ -224,7 +254,6 @@
                 android:id="@+id/eventsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"></android.support.v7.widget.RecyclerView>

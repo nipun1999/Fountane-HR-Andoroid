@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/event"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="32dp"
+    android:paddingLeft="23dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp">
 
@@ -24,26 +25,56 @@
 
     </android.support.v7.widget.CardView>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <TextView
         android:id="@+id/event_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="17dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/opensans_semibold"
         android:layout_toRightOf="@id/img_card"
         android:text="Sport Engagement"
         android:textSize="17sp" />
 
-    <TextView
-        android:id="@+id/event_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/event_title"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="8dp"
-        android:layout_toRightOf="@id/img_card"
-        android:alpha="0.8"
-        android:text="July 11, 04:30 PM" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/date_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/img_card"
+            android:text="04"
+            android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/month_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@id/img_card"
+                android:text="July"
+                android:textSize="14sp" />
 
 
-</RelativeLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

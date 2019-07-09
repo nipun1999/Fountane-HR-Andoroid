@@ -216,9 +216,11 @@ public class SignInActivity extends AppCompatActivity {
 
                     if(status){
                         Intent walkthrough = new Intent(SignInActivity.this,WalkthroughActivity.class);
+                        finish();
                         startActivity(walkthrough);
                     }else{
                         Intent dashboard = new Intent(SignInActivity.this,MainActivity.class);
+                        finish();
                         startActivity(dashboard);
                     }
                 }else if(response.code()==500){

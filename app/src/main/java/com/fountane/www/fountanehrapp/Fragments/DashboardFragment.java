@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -61,7 +62,7 @@ import retrofit2.Response;
  */
 public class DashboardFragment extends Fragment {
 
-    private CardView grievancesBtn, leavesBtn, payslipsBtn, documentsBtn;
+    private CardView grievancesBtn, leavesBtn, payslipsBtn, documentsBtn,addBtn;
     private RecyclerView newsRecycler, eventsRecycler;
     private newsRecyclerAdapter newsRecyclerAdapter;
     private EventsRecyclerAdapter eventsRecyclerAdapter;
@@ -79,6 +80,7 @@ public class DashboardFragment extends Fragment {
     private FirebaseRemoteConfig firebaseRemoteConfig;
     private String adminEmail;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    private boolean doubleBackToExitPressedOnce = false;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -102,6 +104,7 @@ public class DashboardFragment extends Fragment {
         noNewsImageView = view.findViewById(R.id.noNewsImageView);
         noEventsImageView = view.findViewById(R.id.noEventImageView);
         eventsViewAll = view.findViewById(R.id.eventsViewAll);
+        addBtn = view.findViewById(R.id.addLayout);
 
         sessionManager = new SessionManager(getActivity());
 
@@ -120,7 +123,9 @@ public class DashboardFragment extends Fragment {
                 Log.e("email", sessionManager.getEMAIL_ID());
                 if (adminEmail.equals(sessionManager.getEMAIL_ID())) {
                     documentsBtn.setVisibility(View.VISIBLE);
+                    addBtn.setVisibility(View.GONE);
                 } else {
+                    addBtn.setVisibility(View.VISIBLE);
                     documentsBtn.setVisibility(View.GONE);
                 }
             }
@@ -371,6 +376,8 @@ public class DashboardFragment extends Fragment {
 
     }
 
+
+
     private void getNews() {
         final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         pd.show();
@@ -484,5 +491,10 @@ public class DashboardFragment extends Fragment {
             return "DEC";
         }
     }
+
+
+
+
+
 
 }

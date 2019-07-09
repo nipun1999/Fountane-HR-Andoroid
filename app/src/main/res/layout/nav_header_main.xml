@@ -6,24 +6,28 @@
     android:layout_marginTop="15dp"
     android:orientation="vertical">
 
+
+    <TextView
+        android:id="@+id/nameNavTxtView"
+        android:fontFamily="@font/opensans_semibold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0.85"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="20dp"
+        android:lineSpacingExtra="5sp"
+        android:text="Cheryl Adams"
+        android:textSize="20sp" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_below="@id/nameNavTxtView"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:elevation="2dp"
         android:src="@drawable/profile_pic" />
 
-    <TextView
-        android:id="@+id/nameNavTxtView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:alpha="0.85"
-        android:lineSpacingExtra="5sp"
-        android:text="Cheryl Adams"
-        android:textSize="20sp" />
 
 </LinearLayout>
