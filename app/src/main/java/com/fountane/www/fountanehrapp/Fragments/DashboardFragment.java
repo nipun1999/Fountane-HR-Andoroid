@@ -35,6 +35,7 @@ import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
 import com.fountane.www.fountanehrapp.Utils.AppConstants;
 import com.fountane.www.fountanehrapp.Utils.SessionManager;
+import com.fountane.www.fountanehrapp.models.DirectoryList;
 import com.fountane.www.fountanehrapp.models.News;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,6 +48,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -333,13 +336,15 @@ public class DashboardFragment extends Fragment {
                 if (response.code() == 200) {
 
                     if (response.body().getEvents().size() != 0) {
+
                         noEventsImageView.setVisibility(View.GONE);
                         for (int i = 0; i < response.body().getEvents().size(); i++) {
                             News news = new News();
                             try {
                                 mydate = df.parse(response.body().getEvents().get(i).getEventDate());
+                                String temp = String.format("%02d", mydate.getDate());
                                 String month = parseMonth(mydate.getMonth() + 1);
-                                news.setDate(Integer.toString(mydate.getDate()));
+                                news.setDate(temp);
                                 news.setMonth(month);
 //                                news.setImageUrl(response.body().getEvents().get(i).getImageFirebaseLink().toString());
                                 news.setTime(Integer.toString(mydate.getHours()) + ":" + Integer.toString(mydate.getMinutes()));
@@ -355,6 +360,15 @@ public class DashboardFragment extends Fragment {
                             AppConstants.EVENTS.add(news);
                             eventsList.add(news);
                         }
+                        Collections.sort(eventsList, new Comparator<News>() {
+                                    @Override
+                                    public int compare(News o1, News o2) {
+                                        final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                                        Integer s1 = Integer.parseInt(o1.getDate());
+                                        Integer s2 = Integer.parseInt(o2.getDate());
+                                        return s1.compareTo(s2);
+                                    }
+                                });
                         eventsRecyclerAdapter.notifyDataSetChanged();
 
                     } else {

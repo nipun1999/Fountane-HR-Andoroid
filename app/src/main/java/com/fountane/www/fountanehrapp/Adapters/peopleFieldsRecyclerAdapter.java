@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.fountane.www.fountanehrapp.Activities.employeeDetailActivity;
 import com.fountane.www.fountanehrapp.Fragments.ProfileFragment;
 import com.fountane.www.fountanehrapp.Fragments.UserProfileFragment;
@@ -67,6 +69,15 @@ public class peopleFieldsRecyclerAdapter extends  RecyclerView.Adapter<peopleFie
                 v.getContext().startActivity(intent);
             }
         });
+
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.loading)
+                .error(R.drawable.profile_pic)
+                .fitCenter();
+        Glide.with(itemView.getContext())
+                .applyDefaultRequestOptions(requestOptions)
+                .load(people.getImageLink())
+                .into(holder.imageView);
 
 
     }

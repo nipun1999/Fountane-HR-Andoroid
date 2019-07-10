@@ -59,6 +59,7 @@ public class allNewsRecyclerAdapter extends RecyclerView.Adapter<allNewsRecycler
         holder.month.setText(news.getMonth());
         holder.publishedBy.setText(news.getPublishedby());
 
+
         RequestOptions requestOptions = new RequestOptions()
                 .placeholder(R.drawable.loading)
                 .error(R.drawable.placeholder_1)

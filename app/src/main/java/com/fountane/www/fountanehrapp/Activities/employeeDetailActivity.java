@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class employeeDetailActivity extends AppCompatActivity {
     private TextView nameTxtView,designationTxtView,empCodeTxtView,contactNoTxtView,emailTxtView,dobTxtView,addressTxtView,branchTxtView,departmentTxtView;
     private SessionManager sessionManager;
     private ProgressDialog pd;
+    private ImageView profile;
 
 
     @Override
@@ -39,6 +41,7 @@ public class employeeDetailActivity extends AppCompatActivity {
         empCodeTxtView = findViewById(R.id.profileEmpCodeTxtView);
         contactNoTxtView = findViewById(R.id.profileContactTxtView);
         emailTxtView = findViewById(R.id.profileEmailTxtView);
+        profile = findViewById(R.id.profileImageView);
 //        dobTxtView = findViewById(R.id.profileDOBTxtView);
 //        addressTxtView = findViewById(R.id.addressProfileTxtView);
 //        branchTxtView = findViewById(R.id.profileBranchTxtView);
@@ -64,11 +67,23 @@ public class employeeDetailActivity extends AppCompatActivity {
                     designationTxtView.setText(response.body().getProfile().get(0).getDesignation());
                     empCodeTxtView.setText(response.body().getProfile().get(0).getEmpCode());
                     contactNoTxtView.setText(response.body().getProfile().get(0).getMobileNo());
-//                    dobTxtView.setText(response.body().getProfile().get(0).getDOB());
+                    //                    dobTxtView.setText(response.body().getProfile().get(0).getDOB());
 //                    addressTxtView.setText(response.body().getProfile().get(0).getProvince());
 //                    branchTxtView.setText(response.body().getProfile().get(0).getBranchLocation());
 //                    departmentTxtView.setText(response.body().getProfile().get(0).getDepartment());
                     emailTxtView.setText(response.body().getProfile().get(0).getPersonalEmail());
+
+
+                    RequestOptions requestOptions = new RequestOptions()
+                            .placeholder(R.drawable.loading)
+                            .error(R.drawable.profile_pic)
+                            .fitCenter();
+                    Glide.with(getApplicationContext())
+                            .applyDefaultRequestOptions(requestOptions)
+                            .load(response.body().getProfile().get(0).getProfilePic())
+                            .into(profile);
+
+
                 }else{
                     pd.dismiss();
                     Toast.makeText(employeeDetailActivity.this, "Could not load profile", Toast.LENGTH_SHORT).show();

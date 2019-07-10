@@ -93,7 +93,7 @@ public class fieldRelatedFragment extends Fragment {
                             people = new peopleField();
                             people.setEmpCode(response.body().getProfile().get(i).getEmpCode());
                             people.setName(response.body().getProfile().get(i).getName());
-                            people.setImageLink("image");
+                            people.setImageLink(response.body().getProfile().get(i).getProfilePic());
                             peopleList.add(people);
                             peopleRecyclerAdapter.notifyDataSetChanged();
                         }

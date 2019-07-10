@@ -37,6 +37,8 @@ public class getPeopleDepartmentWise {
         @SerializedName("empCode")
         @Expose
         private String empCode;
+        @SerializedName("profilePic")
+        private String profilePic;
 
         public String getName() {
             return name;
@@ -54,5 +56,12 @@ public class getPeopleDepartmentWise {
             this.empCode = empCode;
         }
 
+        public String getProfilePic() {
+            return profilePic;
+        }
+
+        public void setProfilePic(String profilePic) {
+            this.profilePic = profilePic;
+        }
     }
 }
