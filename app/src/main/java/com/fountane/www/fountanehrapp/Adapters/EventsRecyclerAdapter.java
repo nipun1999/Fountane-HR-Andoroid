@@ -34,7 +34,7 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
     public Context mcontext;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, date,month,year;
+        public TextView title, date,month,dateCalendar;
         public ImageView imageView;
         public LinearLayout main_event;
 
@@ -46,6 +46,7 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
             month = view.findViewById(R.id.month_title);
             imageView = view.findViewById(R.id.event_img);
             main_event = view.findViewById(R.id.event);
+            dateCalendar = view.findViewById(R.id.dateCalendarTxt);
         }
     }
 
@@ -67,29 +68,22 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
         holder.title.setText(news.getTitle());
         holder.date.setText(news.getDate());
         holder.month.setText(news.getMonth());
+        holder.dateCalendar.setText(news.getDate());
 
-        RequestOptions requestOptions = new RequestOptions()
-                .placeholder(R.drawable.loading)
-                .error(R.drawable.placeholder_1)
-                .fitCenter()
-                .override(250, 161);
-        Glide.with(itemView.getContext())
-                .applyDefaultRequestOptions(requestOptions)
-                .load(news.getImageUrl())
-                .into(holder.imageView);
+        try{
+            RequestOptions requestOptions = new RequestOptions()
+                    .placeholder(R.drawable.loading)
+                    .error(R.drawable.calendar)
+                    .fitCenter()
+                    .override(250, 161);
+            Glide.with(itemView.getContext())
+                    .applyDefaultRequestOptions(requestOptions)
+                    .load(news.getImageUrl())
+                    .into(holder.imageView);
+        }catch (Exception e){
 
-        holder.main_event.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(mcontext, NewsActivity.class);
-                i.putExtra("newsId", news.getId());
-                i.putExtra("Headline", news.getTitle());
-                i.putExtra("Data", news.getData());
-                i.putExtra("Img", news.getImageUrl());
-                i.putExtra("from","Events");
-                mcontext.startActivity(i);
-            }
-        });
+        }
+
 
     }
 

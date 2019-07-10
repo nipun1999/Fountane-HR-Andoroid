@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     return true;
                 case R.id.nav3:
                     AppConstants.enableSearch = true;
-                    transaction.replace(R.id.content, new FountaneFragment()).addToBackStack("tag").commit();
-                    return true;
+                    Intent adminPanel = new Intent(MainActivity.this,HierarchyTabbedActivity.class);
+                    startActivity(adminPanel);
             }
             return false;
         }

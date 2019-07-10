@@ -341,7 +341,7 @@ public class DashboardFragment extends Fragment {
                                 String month = parseMonth(mydate.getMonth() + 1);
                                 news.setDate(Integer.toString(mydate.getDate()));
                                 news.setMonth(month);
-                                news.setImageUrl(response.body().getEvents().get(i).getImageFirebaseLink().toString());
+//                                news.setImageUrl(response.body().getEvents().get(i).getImageFirebaseLink().toString());
                                 news.setTime(Integer.toString(mydate.getHours()) + ":" + Integer.toString(mydate.getMinutes()));
                             } catch (ParseException e) {
                                 news.setDate("00");

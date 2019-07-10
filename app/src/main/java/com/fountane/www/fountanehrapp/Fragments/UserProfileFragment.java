@@ -54,10 +54,10 @@ public class UserProfileFragment extends Fragment {
         empCodeTxtView = view.findViewById(R.id.profileEmpCodeTxtView);
         contactNoTxtView = view.findViewById(R.id.profileContactTxtView);
         emailTxtView = view.findViewById(R.id.profileEmailTxtView);
-        dobTxtView = view.findViewById(R.id.profileDOBTxtView);
-        addressTxtView = view.findViewById(R.id.addressProfileTxtView);
-        branchTxtView = view.findViewById(R.id.profileBranchTxtView);
-        departmentTxtView = view.findViewById(R.id.profileDepartmentTxtView);
+//        dobTxtView = view.findViewById(R.id.profileDOBTxtView);
+//        addressTxtView = view.findViewById(R.id.addressProfileTxtView);
+//        branchTxtView = view.findViewById(R.id.profileBranchTxtView);
+//        departmentTxtView = view.findViewById(R.id.profileDepartmentTxtView);
         sessionManager = new SessionManager(getActivity());
 
         pd = new ProgressDialog(getActivity());
@@ -82,10 +82,10 @@ public class UserProfileFragment extends Fragment {
                     designationTxtView.setText(response.body().getProfile().get(0).getDesignation());
                     empCodeTxtView.setText(response.body().getProfile().get(0).getEmpCode());
                     contactNoTxtView.setText(response.body().getProfile().get(0).getMobileNo());
-                    dobTxtView.setText(response.body().getProfile().get(0).getDOB());
-                    addressTxtView.setText(response.body().getProfile().get(0).getProvince());
-                    branchTxtView.setText(response.body().getProfile().get(0).getBranchLocation());
-                    departmentTxtView.setText(response.body().getProfile().get(0).getDepartment());
+//                    dobTxtView.setText(response.body().getProfile().get(0).getDOB());
+//                    addressTxtView.setText(response.body().getProfile().get(0).getProvince());
+//                    branchTxtView.setText(response.body().getProfile().get(0).getBranchLocation());
+//                    departmentTxtView.setText(response.body().getProfile().get(0).getDepartment());
                     emailTxtView.setText(response.body().getProfile().get(0).getPersonalEmail());
                     RequestOptions requestOptions = new RequestOptions()
                             .placeholder(R.drawable.loading)

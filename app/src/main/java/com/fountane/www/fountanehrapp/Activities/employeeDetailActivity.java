@@ -39,10 +39,10 @@ public class employeeDetailActivity extends AppCompatActivity {
         empCodeTxtView = findViewById(R.id.profileEmpCodeTxtView);
         contactNoTxtView = findViewById(R.id.profileContactTxtView);
         emailTxtView = findViewById(R.id.profileEmailTxtView);
-        dobTxtView = findViewById(R.id.profileDOBTxtView);
-        addressTxtView = findViewById(R.id.addressProfileTxtView);
-        branchTxtView = findViewById(R.id.profileBranchTxtView);
-        departmentTxtView = findViewById(R.id.profileDepartmentTxtView);
+//        dobTxtView = findViewById(R.id.profileDOBTxtView);
+//        addressTxtView = findViewById(R.id.addressProfileTxtView);
+//        branchTxtView = findViewById(R.id.profileBranchTxtView);
+//        departmentTxtView = findViewById(R.id.profileDepartmentTxtView);
 
         pd = new ProgressDialog(this);
         pd.setMessage("loading");
@@ -64,10 +64,10 @@ public class employeeDetailActivity extends AppCompatActivity {
                     designationTxtView.setText(response.body().getProfile().get(0).getDesignation());
                     empCodeTxtView.setText(response.body().getProfile().get(0).getEmpCode());
                     contactNoTxtView.setText(response.body().getProfile().get(0).getMobileNo());
-                    dobTxtView.setText(response.body().getProfile().get(0).getDOB());
-                    addressTxtView.setText(response.body().getProfile().get(0).getProvince());
-                    branchTxtView.setText(response.body().getProfile().get(0).getBranchLocation());
-                    departmentTxtView.setText(response.body().getProfile().get(0).getDepartment());
+//                    dobTxtView.setText(response.body().getProfile().get(0).getDOB());
+//                    addressTxtView.setText(response.body().getProfile().get(0).getProvince());
+//                    branchTxtView.setText(response.body().getProfile().get(0).getBranchLocation());
+//                    departmentTxtView.setText(response.body().getProfile().get(0).getDepartment());
                     emailTxtView.setText(response.body().getProfile().get(0).getPersonalEmail());
                 }else{
                     pd.dismiss();
