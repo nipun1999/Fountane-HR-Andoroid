@@ -39,4 +39,8 @@
         <item name="titleTextColor">#fff</item>
     </style>
 
+    <style name="MenuItem">
+        <item name="android:paddingLeft">43dp</item>
+    </style>
+
 </resources>

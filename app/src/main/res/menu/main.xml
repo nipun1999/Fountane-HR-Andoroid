@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_notifications"
-        android:icon="@drawable/ic_path_1"
+        android:icon="@drawable/ic_bell"
         android:title="Notifications"
         app:showAsAction="ifRoom" />
 </menu>

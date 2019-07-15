@@ -4,8 +4,10 @@ package com.fountane.www.fountanehrapp.Fragments;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -65,7 +67,7 @@ import retrofit2.Response;
  */
 public class DashboardFragment extends Fragment {
 
-    private CardView grievancesBtn, leavesBtn, payslipsBtn, documentsBtn,addBtn;
+    private CardView grievancesBtn, leavesBtn, payslipsBtn, documentsBtn, addBtn;
     private RecyclerView newsRecycler, eventsRecycler;
     private newsRecyclerAdapter newsRecyclerAdapter;
     private EventsRecyclerAdapter eventsRecyclerAdapter;
@@ -330,6 +332,7 @@ public class DashboardFragment extends Fragment {
         AppConstants.EVENTS.clear();
         retrofit2.Call<getEventsApiModel> call = ApiClient.getClient().getEvents();
         call.enqueue(new Callback<getEventsApiModel>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(retrofit2.Call<getEventsApiModel> call, Response<getEventsApiModel> response) {
                 pd.hide();
@@ -357,18 +360,30 @@ public class DashboardFragment extends Fragment {
                             news.setTitle(response.body().getEvents().get(i).getName());
                             news.setData(response.body().getEvents().get(i).getEventVenue());
                             news.setPublishedby(response.body().getEvents().get(i).getEventVenue());
+                            news.setDate_gmt(response.body().getEvents().get(i).getEventDate());
                             AppConstants.EVENTS.add(news);
-                            eventsList.add(news);
+                            final DateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                            Date strDate = null;
+                            try {
+                                strDate = sdf.parse(response.body().getEvents().get(i).getEventDate());
+                                if (new Date().before(strDate) && eventsList.size() < 3) {
+                                    eventsList.add(news);
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+
                         }
                         Collections.sort(eventsList, new Comparator<News>() {
-                                    @Override
-                                    public int compare(News o1, News o2) {
-                                        final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                                        Integer s1 = Integer.parseInt(o1.getDate());
-                                        Integer s2 = Integer.parseInt(o2.getDate());
-                                        return s1.compareTo(s2);
-                                    }
-                                });
+                            @Override
+                            public int compare(News o1, News o2) {
+                                final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                                Integer s1 = Integer.parseInt(o1.getDate());
+                                Integer s2 = Integer.parseInt(o2.getDate());
+                                return s1.compareTo(s2);
+                            }
+                        });
                         eventsRecyclerAdapter.notifyDataSetChanged();
 
                     } else {
@@ -389,7 +404,6 @@ public class DashboardFragment extends Fragment {
         });
 
     }
-
 
 
     private void getNews() {
@@ -424,6 +438,7 @@ public class DashboardFragment extends Fragment {
                             news.setPublishedby(response.body().getNewsobj().get(i).getVenue());
                             newsList.add(news);
                         }
+                        Collections.reverse(newsList);
                         newsRecyclerAdapter.notifyDataSetChanged();
                     } else {
                         noNewsImageView.setVisibility(View.VISIBLE);
@@ -505,10 +520,6 @@ public class DashboardFragment extends Fragment {
             return "DEC";
         }
     }
-
-
-
-
 
 
 }

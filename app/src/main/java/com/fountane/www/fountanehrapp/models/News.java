@@ -2,7 +2,7 @@ package com.fountane.www.fountanehrapp.models;
 
 public class News {
 
-    private String id, title, date, publishedby, time, imageUrl, month, data;
+    private String id, title, date, publishedby, time, imageUrl, month, data, date_gmt;
 
     public News(String newsId, String title, String date, String publishedby, String time, String imageUrl, String month, String data) {
         this.id = newsId;
@@ -82,5 +82,13 @@ public class News {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getDate_gmt() {
+        return date_gmt;
+    }
+
+    public void setDate_gmt(String date_gmt) {
+        this.date_gmt = date_gmt;
     }
 }

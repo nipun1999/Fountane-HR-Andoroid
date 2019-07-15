@@ -2,21 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="15dp"
-    android:layout_marginTop="15dp"
-    android:orientation="vertical">
+    android:layout_marginTop="43dp"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingBottom="32dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Menu"
+        android:textColor="#000"
+        android:textSize="32sp" />
 
 
     <TextView
         android:id="@+id/nameNavTxtView"
-        android:fontFamily="@font/opensans_semibold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:alpha="0.85"
-        android:textColor="@android:color/black"
-        android:layout_marginTop="20dp"
+        android:fontFamily="@font/opensans_semibold"
         android:lineSpacingExtra="5sp"
         android:text="Cheryl Adams"
+        android:textColor="@android:color/black"
         android:textSize="20sp" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -27,7 +35,6 @@
         android:layout_marginBottom="10dp"
         android:elevation="2dp"
         android:src="@drawable/profile_pic" />
-
 
 
 </LinearLayout>
