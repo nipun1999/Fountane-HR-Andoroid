@@ -27,7 +27,6 @@
             android:text="14"
             android:textSize="25sp"
             android:fontFamily="@font/opensans_semibold"
-            android:textColor="@android:color/holo_blue_dark"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="28dp"/>
 
@@ -37,7 +36,7 @@
             android:id="@+id/event_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/calendar"
+            android:src="@drawable/ic_calendar"
             android:scaleType="fitXY" />
 
 

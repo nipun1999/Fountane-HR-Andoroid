@@ -73,7 +73,7 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
         try{
             RequestOptions requestOptions = new RequestOptions()
                     .placeholder(R.drawable.loading)
-                    .error(R.drawable.calendar)
+                    .error(R.drawable.ic_calendar)
                     .fitCenter()
                     .override(250, 161);
             Glide.with(itemView.getContext())

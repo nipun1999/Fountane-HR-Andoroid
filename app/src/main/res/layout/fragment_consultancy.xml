@@ -26,13 +26,13 @@
                 android:weightSum="2">
 
                 <android.support.v7.widget.CardView
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
                     android:id="@+id/androidConsultancyCardView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="5dp">
@@ -69,14 +69,13 @@
                 </android.support.v7.widget.CardView>
 
 
-
                 <android.support.v7.widget.CardView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
                     android:id="@+id/iosConsultancyCardView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="5dp">
@@ -101,8 +100,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="IOS Development"
                             android:gravity="center"
+                            android:text="IOS Development"
                             android:textColor="#000"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -126,12 +125,12 @@
                 android:weightSum="2">
 
                 <android.support.v7.widget.CardView
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginBottom="10dp"
                     android:id="@+id/visualConsultancyCardView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_marginLeft="1dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="5dp">
@@ -166,11 +165,11 @@
 
 
                 <android.support.v7.widget.CardView
-                    android:layout_marginBottom="10dp"
                     android:id="@+id/uiConsultancyCardView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="5dp">
@@ -218,13 +217,13 @@
 
 
                 <android.support.v7.widget.CardView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginBottom="10dp"
                     android:id="@+id/frontEndConsultancyCardView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="5dp">
@@ -262,12 +261,12 @@
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/backEndConsultancyCardView"
-                    android:layout_marginTop="5dp"
                     android:layout_width="150dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_height="150dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="5dp">
@@ -313,13 +312,13 @@
                 android:weightSum="2">
 
                 <android.support.v7.widget.CardView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="1dp"
                     android:id="@+id/projectManagerConsultancyCardView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="5dp">
@@ -353,12 +352,12 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
                     android:id="@+id/contentWritersConsultancyCardView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="5dp">
@@ -408,13 +407,13 @@
                 android:weightSum="2">
 
                 <android.support.v7.widget.CardView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="1dp"
                     android:id="@+id/qaConsultancyCardView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="5dp">
@@ -432,7 +431,7 @@
                             android:layout_width="75dp"
                             android:layout_height="75dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_02_visual" />
+                            android:src="@drawable/ic_certificate" />
 
                         <TextView
                             android:id="@+id/androidTxtView"
@@ -449,13 +448,13 @@
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="1dp"
                     android:id="@+id/hrConsultancyCardView"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="5dp">
@@ -473,7 +472,7 @@
                             android:layout_width="75dp"
                             android:layout_height="75dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_05_android" />
+                            android:src="@drawable/ic_job_interview" />
 
                         <TextView
                             android:id="@+id/androidTxtView"

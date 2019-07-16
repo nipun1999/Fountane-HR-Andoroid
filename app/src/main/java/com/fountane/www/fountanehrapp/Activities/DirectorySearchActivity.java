@@ -33,8 +33,6 @@ public class DirectorySearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directory_search);
-        Log.d("dev1234", String.valueOf(AppConstants.DIRECTORY.size()));
-
         searchButton = findViewById(R.id.search_button);
         search = findViewById(R.id.edit_search);
         searchList = directoryList;

@@ -1,25 +1,28 @@
 package com.fountane.www.fountanehrapp.Fragments;
 
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +40,6 @@ import com.fountane.www.fountanehrapp.R;
 import com.fountane.www.fountanehrapp.Retrofit.ApiClient;
 import com.fountane.www.fountanehrapp.Utils.AppConstants;
 import com.fountane.www.fountanehrapp.Utils.SessionManager;
-import com.fountane.www.fountanehrapp.models.DirectoryList;
 import com.fountane.www.fountanehrapp.models.News;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -67,6 +69,7 @@ import retrofit2.Response;
  */
 public class DashboardFragment extends Fragment {
 
+    private RelativeLayout hrBut;
     private CardView grievancesBtn, leavesBtn, payslipsBtn, documentsBtn, addBtn;
     private RecyclerView newsRecycler, eventsRecycler;
     private newsRecyclerAdapter newsRecyclerAdapter;
@@ -97,8 +100,10 @@ public class DashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        getActivity().setTitle("Dashboard");
+//        TextView pageTitle = view.findViewById(R.id.toolbar_title);
+//        pageTitle.setText("Home");
         grievancesBtn = view.findViewById(R.id.grievancesLayout);
+        hrBut = view.findViewById(R.id.hr_but);
         leavesBtn = view.findViewById(R.id.leavesLayout);
         payslipsBtn = view.findViewById(R.id.payslipsLayout);
         documentsBtn = view.findViewById(R.id.adminLayout);
@@ -128,10 +133,12 @@ public class DashboardFragment extends Fragment {
                 Log.e("email", sessionManager.getEMAIL_ID());
                 if (adminEmail.equals(sessionManager.getEMAIL_ID())) {
                     documentsBtn.setVisibility(View.VISIBLE);
+                    hrBut.setVisibility(View.VISIBLE);
                     addBtn.setVisibility(View.GONE);
                 } else {
                     addBtn.setVisibility(View.VISIBLE);
                     documentsBtn.setVisibility(View.GONE);
+                    hrBut.setVisibility(View.GONE);
                 }
             }
 
@@ -362,7 +369,7 @@ public class DashboardFragment extends Fragment {
                             news.setPublishedby(response.body().getEvents().get(i).getEventVenue());
                             news.setDate_gmt(response.body().getEvents().get(i).getEventDate());
                             AppConstants.EVENTS.add(news);
-                            final DateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                            final DateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
                             Date strDate = null;
                             try {
                                 strDate = sdf.parse(response.body().getEvents().get(i).getEventDate());

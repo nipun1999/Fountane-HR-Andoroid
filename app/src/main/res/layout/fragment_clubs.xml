@@ -435,7 +435,7 @@
                             android:layout_width="75dp"
                             android:layout_height="75dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_02_visual" />
+                            android:src="@drawable/ic_certificate" />
 
                         <TextView
                             android:id="@+id/androidTxtView"
@@ -476,7 +476,7 @@
                             android:layout_width="75dp"
                             android:layout_height="75dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_05_android" />
+                            android:src="@drawable/ic_job_interview" />
 
                         <TextView
                             android:id="@+id/androidTxtView"
