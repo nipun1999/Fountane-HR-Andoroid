@@ -19,6 +19,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +50,12 @@ public class OnGoingEventsTab extends Fragment {
                 e.printStackTrace();
             }
         }
-
+        Collections.sort(ongoing, new Comparator<News>() {
+            @Override
+            public int compare(News lhs, News rhs) {
+                return rhs.getDate().compareTo(lhs.getDate());
+            }
+        });
         eventsRecyclerAdapter = new EventsRecyclerAdapter(ongoing, getActivity());
         RecyclerView.LayoutManager eventsLayoutmanager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(eventsLayoutmanager);
