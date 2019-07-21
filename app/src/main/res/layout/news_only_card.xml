@@ -13,6 +13,7 @@
         android:layout_width="322dp"
         android:layout_height="200dp"
         android:focusable="true"
+        app:cardBackgroundColor="#000"
         app:cardCornerRadius="16dp">
 
         <RelativeLayout
@@ -23,12 +24,11 @@
                 android:id="@+id/newsImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+                android:src="@drawable/ic_hr_card_shape_1" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/overlay_news">
+                android:layout_height="match_parent">
 
 
                 <LinearLayout
@@ -62,7 +62,6 @@
                     android:layout_height="wrap_content"
                     android:layout_above="@id/dateLinerLayout"
                     android:layout_marginLeft="24dp"
-                    android:gravity="center"
                     android:textColor="#fff"
                     android:textSize="18sp" />
 

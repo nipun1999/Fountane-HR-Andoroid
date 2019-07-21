@@ -2,6 +2,7 @@ package com.fountane.www.fountanehrapp.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -74,10 +75,23 @@ public class newsRecyclerAdapter extends RecyclerView.Adapter<newsRecyclerAdapte
                 .error(R.drawable.placeholder_1)
                 .fitCenter()
                 .override(250, 161);
-        Glide.with(itemView.getContext())
-                .applyDefaultRequestOptions(requestOptions)
-                .load(news.getImageUrl())
-                .into(holder.imageView);
+
+        if (position % 4 == 0) {
+            holder.imageView.setImageDrawable(mcontext.getResources().getDrawable(R.drawable.ic_hr_card_shape_1));
+        }
+        if (position % 4 == 1) {
+            holder.imageView.setImageDrawable(mcontext.getResources().getDrawable(R.drawable.ic_hr_card_shape_2));
+        }
+        if (position % 4 == 2) {
+            holder.imageView.setImageDrawable(mcontext.getResources().getDrawable(R.drawable.ic_hr_card_shape_3));
+        }
+        if (position % 4 == 3) {
+            holder.imageView.setImageDrawable(mcontext.getResources().getDrawable(R.drawable.ic_hr_card_shape_4));
+        }
+//        Glide.with(itemView.getContext())
+//                .applyDefaultRequestOptions(requestOptions)
+//                .load(news.getImageUrl())
+//                .into(holder.imageView);
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override

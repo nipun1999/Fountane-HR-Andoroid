@@ -9,6 +9,11 @@
     <color name="bg_screen3">#3395ff</color>
     <color name="bg_screen4">#c873f4</color>
 
+    <color name="back1">#9CC7CF</color>
+    <color name="back2">#F5E0E5</color>
+    <color name="back3">#FFAFB9</color>
+    <color name="back4">#C4FFFF</color>
+
     <!-- dots inactive colors -->
     <color name="dot_dark_screen1">#d1395c</color>
     <color name="dot_dark_screen2">#14a895</color>
